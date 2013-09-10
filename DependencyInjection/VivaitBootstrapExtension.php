@@ -1,6 +1,6 @@
 <?php
 
-namespace Viva\CommonBundle\DependencyInjection;
+namespace Vivait\BootstrapBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class VivaCommonExtension extends Extension
+class VivaitBootstrapExtension extends Extension
 {
     /**
      * {@inheritDoc}

@@ -8,9 +8,9 @@
 		{% stylesheets
 		'@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
 		'@MopaBootstrapBundle/Resources/public/less/eyecon-bootstrap-3-datepicker.less'
-		'@VivaCommonBundle/Resources/public/css/jquery.dialog2.css'
-		'@VivaCommonBundle/Resources/public/css/messenger.css'
-		'@VivaCommonBundle/Resources/public/css/messenger-theme-future.css' %}
+		'@VivaitBootstrapBundle/Resources/public/css/jquery.dialog2.css'
+		'@VivaitBootstrapBundle/Resources/public/css/messenger.css'
+		'@VivaitBootstrapBundle/Resources/public/css/messenger-theme-future.css' %}
 		<link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen"/>
 		{% endstylesheets %}
 		{# To use this without less use the base_css.html.twig template as your base
@@ -22,7 +22,7 @@
 
 
 {% block navbar %}
-	{% include 'VivaCommonBundle:Default:menu.html.twig' %}
+	{% include 'VivaitBootstrapBundle:Default:menu.html.twig' %}
 {% endblock navbar %}
 
 {% block page_header %}{% endblock page_header %}
@@ -53,17 +53,17 @@
 		 #}
 
 		{% javascripts
-		'@VivaCommonBundle/Resources/public/js/vendor/jquery-1.10.2.min.js'
-		'@VivaCommonBundle/Resources/public/js/vendor/jquery.dialog2.js'
-		'@VivaCommonBundle/Resources/public/js/vendor/jquery.controls.js'
-		'@VivaCommonBundle/Resources/public/js/vendor/jquery.form.js'
-		'@VivaCommonBundle/Resources/public/js/vendor/jquery.cookie.js'
-		'@VivaCommonBundle/Resources/public/js/vendor/jquery.timeago.js'
-		'@VivaCommonBundle/Resources/public/js/vendor/jquery.dialog2.helpers.js'
-		'@VivaCommonBundle/Resources/public/js/vendor/colorpicker/colorpicker.js'
-		'@VivaCommonBundle/Resources/public/js/vendor/Chart.min.js'
-		'@VivaCommonBundle/Resources/public/js/messenger.min.js'
-		'@VivaCommonBundle/Resources/public/js/messenger-theme-future.js'
+		'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery-1.10.2.min.js'
+		'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery.dialog2.js'
+		'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery.controls.js'
+		'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery.form.js'
+		'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery.cookie.js'
+		'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery.timeago.js'
+		'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery.dialog2.helpers.js'
+		'@VivaitBootstrapBundle/Resources/public/js/vendor/colorpicker/colorpicker.js'
+		'@VivaitBootstrapBundle/Resources/public/js/vendor/Chart.min.js'
+		'@VivaitBootstrapBundle/Resources/public/js/messenger.min.js'
+		'@VivaitBootstrapBundle/Resources/public/js/messenger-theme-future.js'
 		'@MopaBootstrapBundle/Resources/bootstrap/js/transition.js'
 		'@MopaBootstrapBundle/Resources/bootstrap/js/alert.js'
 		'@MopaBootstrapBundle/Resources/bootstrap/js/modal.js'

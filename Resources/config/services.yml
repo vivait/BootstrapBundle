@@ -1,5 +1,5 @@
 parameters:
-#    viva_common.example.class: Viva\CommonBundle\Example
+#    viva_common.example.class: Vivait\BootstrapBundle\Example
 
 services:
 #    viva_common.example:

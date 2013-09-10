@@ -1,6 +1,6 @@
 <?php
 
-	namespace Viva\CommonBundle\Controller;
+	namespace Vivait\BootstrapBundle\Controller;
 
 		/**
 	 * TVarDumper class file
@@ -14,7 +14,7 @@
 
 	/**
 	 * TVarDumper class.
-	 * 	use Viva\CommonBundle\Controller\TVarDumper;
+	 * 	use Vivait\BootstrapBundle\Controller\TVarDumper;
 	 * TVarDumper is intended to replace the buggy PHP function var_dump and print_r.
 	 * It can correctly identify the recursively referenced objects in a complex
 	 * object structure. It also has a recursive depth control to avoid indefinite

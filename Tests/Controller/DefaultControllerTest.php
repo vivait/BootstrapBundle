@@ -1,6 +1,6 @@
 <?php
 
-namespace Viva\CommonBundle\Tests\Controller;
+namespace Vivait\BootstrapBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
