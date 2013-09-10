@@ -1,0 +1,15 @@
+{
+    "name": "vivait/bootstrap",
+    "description": "Bootstrap Common Bundle",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Kiel Goodman",
+            "email": "kiel@vivait.co.uk"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+
+    }
+}

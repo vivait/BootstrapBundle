@@ -1,0 +1,10 @@
+<h1>{{ params.title }}</h1>
+{% if db | length > 0 %}
+{% for row in db %}
+<a href="{{ path('viva_apollo_showmember',{ 'id':row.id }) }}">{{ row.number }}</a>, {% endfor %}
+{% else %}
+<p>There are no records</p>
+{% endif %}
+  <div class="form-actions">
+    <a class="btn close-dialog" href="#">Close</a>
+  </div>

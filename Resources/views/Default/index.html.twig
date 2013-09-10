@@ -1,0 +1,46 @@
+{% extends 'VivaBravoBundle:Default:base.html.twig' %}
+
+{% block body %}
+<script>
+	$(document).ready(function(){
+		var refreshIndex = function() { 
+			$.ajaxSetup ({  cache: false  }); 
+			$.getJSON('{{ path('viva_bravo_indexpoll') }}', function(data) {
+				var messageso = [];
+				var messagesc = [];
+				var messagesd = [];
+				var messagesb = [];
+					
+				$.each(data, function(key,obj) {
+					var items = [];
+					items.push('<h3>My ' + obj.name + ' <span class="badge badge-' + obj.colour + '">' + obj.count + '</span></h3><table class="table table-condensed table-bordered">');
+					$.each(obj.data, function (i, item) {
+						items.push('<tr><td><a href="' + item.url + '">' + item.description + '</a></td></tr>');
+					});
+					items.push('</table>');
+
+					if(obj.name == 'Customers')		{ messagesc = items; }
+					else if(obj.name == 'Deals')	{ messagesd = items; }
+					else if(obj.name == 'Inbox')	{ messageso = items; }
+					else if(obj.name == 'Callbacks'){ messagesb = items; }
+				});
+
+				$("#index-inbox").html(messageso.join(''));
+				$("#index-deals").html(messagesd.join(''));
+				$("#index-customers").html(messagesc.join(''));
+				$("#index-callback").html(messagesb.join(''));
+				$(".offerexpiry").timeago();
+			});	
+		}
+		setInterval(refreshIndex,30000);
+		refreshIndex();
+	});
+</script>
+<div class="row">
+	<div class="col-md-3 well well-small" id="index-inbox"></div>
+	<div class="col-md-3 well well-small" id="index-customers"></div>
+	<div class="col-md-3 well well-small" id="index-deals"></div>
+	<div class="col-md-3 well well-small" id="index-callback"></div>
+</div>
+{% endblock %}
+

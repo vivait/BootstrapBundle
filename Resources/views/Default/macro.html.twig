@@ -1,0 +1,9 @@
+{% macro conditionalLink(url,description,activeclasses,inactivetag,condition) %}
+	{% spaceless %}
+	{% if condition %}
+		<a {% if activeclasses %}class="{{ activeclasses|raw }}" {% endif %}href="{{ url|raw }}">{{ description|raw }}</a>
+	{% else %}
+		{% if inactivetag %}<{{ inactivetag|raw }}>{% endif %}{{ description|raw }}{% if inactivetag|raw %}</{{ inactivetag }}>{% endif %}
+	{% endif %}
+	{% endspaceless %}
+{% endmacro %}

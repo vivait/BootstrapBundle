@@ -1,0 +1,10 @@
+<h1>{{ popup.title }}</h1>
+{{ popup.body|raw }}
+
+
+  <div class="form-actions">
+{% for row in popup.buttons %}
+    <a class="btn {{ row.class }}" href="{{ row.url }}">{{ row.title }}</a>
+{% endfor %}
+
+  </div>

@@ -1,0 +1,195 @@
+{% extends 'MopaBootstrapBundle::base.html.twig' %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import session_flash %}
+
+{% block title %}Viva Application Platform{% endblock %}
+
+    {% block head_style %}
+		{# Override this block to add your own files! #}
+		{% stylesheets
+		'@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
+		'@MopaBootstrapBundle/Resources/public/less/eyecon-bootstrap-3-datepicker.less'
+		'@VivaCommonBundle/Resources/public/css/jquery.dialog2.css'
+		'@VivaCommonBundle/Resources/public/css/messenger.css'
+		'@VivaCommonBundle/Resources/public/css/messenger-theme-future.css' %}
+		<link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen"/>
+		{% endstylesheets %}
+		{# To use this without less use the base_css.html.twig template as your base
+		 # Be sure you understand whats going on: have a look into
+		 # https://github.com/phiamo/MopaBootstrapBundle/blob/master/Resources/doc/css-vs-less.md
+		 #}
+	{% endblock head_style %}
+
+
+
+{% block navbar %}
+	{% include 'VivaCommonBundle:Default:menu.html.twig' %}
+{% endblock navbar %}
+
+{% block page_header %}{% endblock page_header %}
+
+{% block footer %}{% endblock footer %}
+{% block content_div_start %}
+<div style="padding-top:65px;" class="content">{% endblock content_div_start %}
+
+	{% block content_row %}
+		<div class="row">
+			<div class="navbar">
+				<div class="navbar-inner">
+					<div class="navbar-brand">{% block sectiontitle %}{% endblock %}</div>
+					<div class="pull-right">{% block sectionlinks %}{% endblock %}</div>
+				</div>
+			</div>
+			{% block section %}{% endblock %}
+		</div>
+		<div id="modalDialog" style="display: none"><h1>&nbsp;</h1></div>
+	{% endblock content_row %}
+
+
+
+	{% block foot_script %}
+		{# To only use a subset or add more js overwrite and copy paste this block
+		To speed up page loads save a copy of jQuery in your project and override this block to include the correct path
+		Otherwise the regeneration is done on every load in dev more with use_controller: true
+		 #}
+
+		{% javascripts
+		'@VivaCommonBundle/Resources/public/js/vendor/jquery-1.10.2.min.js'
+		'@VivaCommonBundle/Resources/public/js/vendor/jquery.dialog2.js'
+		'@VivaCommonBundle/Resources/public/js/vendor/jquery.controls.js'
+		'@VivaCommonBundle/Resources/public/js/vendor/jquery.form.js'
+		'@VivaCommonBundle/Resources/public/js/vendor/jquery.cookie.js'
+		'@VivaCommonBundle/Resources/public/js/vendor/jquery.timeago.js'
+		'@VivaCommonBundle/Resources/public/js/vendor/jquery.dialog2.helpers.js'
+		'@VivaCommonBundle/Resources/public/js/vendor/colorpicker/colorpicker.js'
+		'@VivaCommonBundle/Resources/public/js/vendor/Chart.min.js'
+		'@VivaCommonBundle/Resources/public/js/messenger.min.js'
+		'@VivaCommonBundle/Resources/public/js/messenger-theme-future.js'
+		'@MopaBootstrapBundle/Resources/bootstrap/js/transition.js'
+		'@MopaBootstrapBundle/Resources/bootstrap/js/alert.js'
+		'@MopaBootstrapBundle/Resources/bootstrap/js/modal.js'
+		'@MopaBootstrapBundle/Resources/bootstrap/js/dropdown.js'
+		'@MopaBootstrapBundle/Resources/bootstrap/js/scrollspy.js'
+		'@MopaBootstrapBundle/Resources/bootstrap/js/tab.js'
+		'@MopaBootstrapBundle/Resources/bootstrap/js/tooltip.js'
+		'@MopaBootstrapBundle/Resources/bootstrap/js/popover.js'
+		'@MopaBootstrapBundle/Resources/bootstrap/js/button.js'
+		'@MopaBootstrapBundle/Resources/bootstrap/js/collapse.js'
+		'@MopaBootstrapBundle/Resources/bootstrap/js/carousel.js'
+		'@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+		'@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
+		'@MopaBootstrapBundle/Resources/public/js/eyecon-bootstrap-datepicker.js' %}
+		<script type="text/javascript" src="{{ asset_url }}"></script>
+		{% endjavascripts %}
+
+		<script>
+			$(document).ready(function () {
+				$('.make-popover').popover();
+
+				$(document).on("click", ".confirm-delete", function () {
+					if (!confirm('Are you sure to delete this item ?')) {
+						return false;
+					}
+				});
+
+				$(document).on("click", ".confirm-message", function (e) {
+					var cnfm = confirm($(this).data('confirm-message'));
+					if (!cnfm) {
+						e.stopImmediatePropagation();
+					}
+					return cnfm;
+				});
+
+
+				$(document).on("click", "tr", function () {
+					var link = $(this).find("a");
+					if(typeof link.attr("href") != "undefined") {
+						if (link.hasClass("ajax-dialog")) {
+							$('#modalDialog').dialog2({
+								content: link.attr("href")
+							});
+						} else {
+							window.location = link.attr("href");
+						}
+					}
+				});
+
+
+				$(document).on("click", ".ajax-dialog", function () {
+					$('#modalDialog').dialog2({
+						content: this.href
+					});
+					event.preventDefault();
+				});
+
+				$(document).on("click", ".btn-group2 .btn", function () {
+					hidden = document.getElementById($(this).data("hiddenid"));
+					if ($(this).hasClass('active')) {
+						hidden.name = 'nobody';
+					} else {
+						hidden.name = $(this).data("hiddenname");
+					}
+				});
+
+				jQuery("abbr.timeago").timeago();
+
+				$(document).delegate(".modal", "dialog2.content-update", function () {
+					// got the dialog as this object. Do something with it!
+					var e = $(this);
+					var autoclose = e.find("a.auto-close");
+					if (autoclose.length > 0) {
+						e.hide();
+						var href = autoclose.attr('href');
+						if (href) {
+							window.location.href = href;
+						}
+					}
+
+					$('.colorpickerfield').ColorPicker({
+
+						onSubmit: function (hsb, hex, rgb, el) {
+							$(el).val(hex);
+							$(el).ColorPickerHide();
+						},
+						onBeforeShow: function () {
+							$(this).ColorPickerSetColor(this.value);
+						}
+					})
+							.bind('keyup', function () {
+								$(this).ColorPickerSetColor(this.value);
+							});
+
+				});
+
+				Messenger.options = {
+					extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
+					theme: 'future'
+				}
+
+
+				$(function () {
+					$('a[data-toggle="tab"]').on('shown', function (e) {
+						//save the latest tab using a cookie:
+						$.cookie('last_tab', $(e.target).attr('href'));
+					});
+
+					//activate latest tab, if it exists:
+					var lastTab = $.cookie('last_tab');
+					if (lastTab) {
+						$('ul.nav-tabs').children().removeClass('active');
+						$('a[href=' + lastTab + ']').parents('li:first').addClass('active');
+						$('div.tab-content').children().removeClass('active');
+						$(lastTab).addClass('active');
+					}
+				});
+			});
+
+
+		</script>
+
+	{% endblock foot_script %}
+
+	{% block flashes %}
+		{% if app.session.flashbag.peekAll|length > 0 %}
+			{{ session_flash() }}
+		{% endif %}
+	{% endblock flashes %}

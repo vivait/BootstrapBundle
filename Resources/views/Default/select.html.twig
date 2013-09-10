@@ -1,0 +1,9 @@
+<h1>{{ form.title }}</h1>
+
+{% for key, value in form.options %}
+<a href="{{ form.action }}&option={{ key }}&parent={{ form.parent }}" class="btn">{{ value }}</a>
+{% endfor %}
+
+<div class="form-actions">
+<a class="btn close-dialog" href="#">Cancel</a>
+</div>
