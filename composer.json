@@ -16,8 +16,8 @@
     },
     "autoload": {
         "psr-0": {
-            "Vivait\\Bundle\\BootstrapBundle": ""
+            "Vivait\\BootstrapBundle": ""
         }
     },
-    "target-dir": "Vivait/Bundle/BootstrapBundle"
+    "target-dir": "Vivait/BootstrapBundle"
 }
