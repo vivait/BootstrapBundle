@@ -10,6 +10,8 @@
     ],
     "minimum-stability": "stable",
     "require": {
-
+        "mopa/composer-bridge": "dev-master",
+        "mopa/bootstrap-bundle": "dev-master",
+        "twbs/bootstrap": "v3.0.0"
     }
 }
