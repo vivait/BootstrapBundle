@@ -13,5 +13,6 @@
         "mopa/composer-bridge": "dev-master",
         "mopa/bootstrap-bundle": "dev-master",
         "twbs/bootstrap": "v3.0.0"
-    }
+    },
+    "target-dir": "Vivait/Bundle/BootstrapBundle"
 }
