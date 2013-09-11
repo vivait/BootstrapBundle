@@ -14,5 +14,10 @@
         "mopa/bootstrap-bundle": "dev-master",
         "twbs/bootstrap": "v3.0.0"
     },
+    "autoload": {
+        "psr-0": {
+            "Vivait\\Bundle\\BootstrapBundle": ""
+        }
+    },
     "target-dir": "Vivait/Bundle/BootstrapBundle"
 }
