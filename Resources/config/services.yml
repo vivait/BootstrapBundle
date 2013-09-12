@@ -5,3 +5,8 @@ services:
 #    viva_common.example:
 #        class: %viva_common.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+
+    vivait_twigfilter_extension:
+      class: Vivait\BootstrapBundle\Twig\TwigFilterExtension
+      tags:
+         -  { name: twig.extension }

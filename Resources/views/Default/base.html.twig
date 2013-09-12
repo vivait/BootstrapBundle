@@ -116,7 +116,13 @@
 
 				$(document).on("click", ".ajax-dialog", function () {
 					$('#modalDialog').dialog2({
-						content: this.href
+						initialLoadText: "One moment...",
+						id: "modal-dialog",
+						content: this.href,
+						closeOnOverlayClick: false,
+						closeOnEscape: true,
+						removeOnClose: false,
+						showCloseHandle: true
 					});
 					event.preventDefault();
 				});

@@ -23,7 +23,7 @@
     /**
      * Dialog html markup
      */
-    var __DIALOG_HTML = "<div class='modal' style=\"display: none;\">" +
+    var __DIALOG_HTML = "<div id=\"modelDialog\" class='modal' style=\"display: none;\">" +
         "<div class='modal-dialog'>" +
         "<div class='modal-content'>" +
         "<div class='modal-header loading'>" +
@@ -145,9 +145,9 @@
                 handle = $(".modal-body", parentHtml);
 
                 // Create dialog body from current jquery selection
-                // If specified body is a div element and only one element is 
+                // If specified body is a div element and only one element is
                 // specified, make it the new modal dialog body
-                // Allows us to do something like this 
+                // Allows us to do something like this
                 // $('<div id="foo"></div>').dialog2(); $("#foo").dialog2("open");
                 if (selection.is("div") && selection.length == 1) {
                     handle.replaceWith(selection);
@@ -189,7 +189,7 @@
             // New options for dialog
             var options = {};
 
-            // Add buttons to dialog for all buttons found within 
+            // Add buttons to dialog for all buttons found within
             // a .form-actions area inside the dialog
 
             // Instead of hiding .form-actions we remove it from view to fix an issue with ENTER not submitting forms
@@ -250,7 +250,7 @@
                 event.preventDefault();
             }).removeClass("ajax");
 
-            // Make submitable for an ajax form 
+            // Make submitable for an ajax form
             // if the jquery.form plugin is provided
             if ($.fn.ajaxForm) {
                 var options = {
@@ -541,10 +541,10 @@
 
         /**
          * options = {
-         *   title: "Some title", 
-         *   id: "my-id", 
+         *   title: "Some title",
+         *   id: "my-id",
          *   buttons: {
-         *     "Name": Object || function   
+         *     "Name": Object || function
          *   }
          * };
          *
