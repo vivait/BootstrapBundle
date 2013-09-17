@@ -1,13 +1,11 @@
 .modal {
      display: none;
-     top: 20%;
-     margin: 0 0 0 -280px;
+     top: 5%;
 }
 
 .wide-modal {
-    top: 20%;
+    top: 5%;
     width: 800px;
-    margin: 0 0 0 -400px; /* -1 * (width / 2) */ 
 }
 
 .modal-body {

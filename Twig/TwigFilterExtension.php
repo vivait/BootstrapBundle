@@ -1,6 +1,9 @@
 <?php
 namespace Vivait\BootstrapBundle\Twig;
 
+use \Twig_Filter_Function;
+use \Twig_Filter_Method;
+
 class TwigFilterExtension extends \Twig_Extension {
     public function getName() {
         return 'twig_extension';
@@ -14,6 +17,7 @@ class TwigFilterExtension extends \Twig_Extension {
 			'gender' => new \Twig_Filter_Method($this, 'genderFilter'),
 			'money' => new \Twig_Filter_Method($this, 'moneyFilter'),
 			'printr' => new \Twig_Filter_Method($this, 'printrFilter'),
+			'file_exists' => new \Twig_Filter_Method($this, 'file_exists'),
         );
     }
 	
@@ -37,6 +41,10 @@ class TwigFilterExtension extends \Twig_Extension {
 	
 	public function moneyFilter($float) {
 		return number_format($float,2,'.',',');
+	}
+
+	public function file_exists($file) {
+		return file_exists($file);
 	}
 	
 }
