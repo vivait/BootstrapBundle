@@ -9,6 +9,7 @@
 		'@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
 		'@MopaBootstrapBundle/Resources/public/less/eyecon-datepicker.less'
 		'@VivaitBootstrapBundle/Resources/public/css/jquery.dialog2.css'
+		'@VivaitBootstrapBundle/Resources/public/css/bootstrap.css'
 		'@VivaitBootstrapBundle/Resources/public/css/messenger.css'
 		'@VivaitBootstrapBundle/Resources/public/css/messenger-theme-future.css' %}
 		<link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen"/>
@@ -100,19 +101,19 @@
 				});
 
 
-				$(document).on("click", "tr", function () {
-					var link = $(this).find("a");
-					if(typeof link.attr("href") != "undefined") {
-						if (link.hasClass("ajax-dialog")) {
-							$('#modalDialog').dialog2({
-								content: link.attr("href")
-							});
-						} else {
-							window.location = link.attr("href");
-						}
-					}
-				});
-
+//				$(document).on("click", "tr", function () {
+//					var link = $(this).find("a");
+//					if(typeof link.attr("href") != "undefined") {
+//						if (link.hasClass("ajax-dialog")) {
+//							$('#modalDialog').dialog2({
+//								content: link.attr("href")
+//							});
+//						} else {
+//							window.location = link.attr("href");
+//						}
+//					}
+//				});
+//
 
 				$(document).on("click", ".ajax-dialog", function () {
 					$('#modalDialog').dialog2({

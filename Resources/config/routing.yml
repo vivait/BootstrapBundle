@@ -1,3 +1,0 @@
-vivait_bootstrap_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: VivaitBootstrapBundle:Default:index }
