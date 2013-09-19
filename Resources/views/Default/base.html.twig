@@ -86,12 +86,6 @@
 			$(document).ready(function () {
 				$('.make-popover').popover();
 
-				$(document).on("click", ".confirm-delete", function () {
-					if (!confirm('Are you sure to delete this item ?')) {
-						return false;
-					}
-				});
-
 				$(document).on("click", ".confirm-message", function (e) {
 					var cnfm = confirm($(this).data('confirm-message'));
 					if (!cnfm) {
@@ -128,6 +122,7 @@
 					event.preventDefault();
 				});
 
+
 				$(document).on("click", ".btn-group2 .btn", function () {
 					hidden = document.getElementById($(this).data("hiddenid"));
 					if ($(this).hasClass('active')) {
@@ -151,19 +146,19 @@
 						}
 					}
 
-					$('.colorpickerfield').ColorPicker({
-
-						onSubmit: function (hsb, hex, rgb, el) {
-							$(el).val(hex);
-							$(el).ColorPickerHide();
-						},
-						onBeforeShow: function () {
-							$(this).ColorPickerSetColor(this.value);
-						}
-					})
-							.bind('keyup', function () {
-								$(this).ColorPickerSetColor(this.value);
-							});
+//					$('.colorpickerfield').ColorPicker({
+//
+//						onSubmit: function (hsb, hex, rgb, el) {
+//							$(el).val(hex);
+//							$(el).ColorPickerHide();
+//						},
+//						onBeforeShow: function () {
+//							$(this).ColorPickerSetColor(this.value);
+//						}
+//					})
+//							.bind('keyup', function () {
+//								$(this).ColorPickerSetColor(this.value);
+//							});
 
 				});
 
@@ -173,19 +168,16 @@
 				}
 
 
-				$(function () {
-					$('a[data-toggle="tab"]').on('shown', function (e) {
-						//save the latest tab using a cookie:
-						$.cookie('last_tab', $(e.target).attr('href'));
+				$(function() {
+					$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+						//save the latest tab; use cookies if you like 'em better:
+						localStorage.setItem('lastTab', $(e.target).attr('id'));
 					});
 
-					//activate latest tab, if it exists:
-					var lastTab = $.cookie('last_tab');
+					//go to the latest tab, if it exists:
+					var lastTab = localStorage.getItem('lastTab');
 					if (lastTab) {
-						$('ul.nav-tabs').children().removeClass('active');
-						$('a[href=' + lastTab + ']').parents('li:first').addClass('active');
-						$('div.tab-content').children().removeClass('active');
-						$(lastTab).addClass('active');
+						$('#'+lastTab).tab('show');
 					}
 				});
 			});
