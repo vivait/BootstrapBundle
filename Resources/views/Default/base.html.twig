@@ -30,7 +30,8 @@
 
 {% block footer %}{% endblock footer %}
 {% block content_div_start %}
-<div style="padding-top:65px;" class="content">{% endblock content_div_start %}
+<div style="padding-top:65px;" class="content">
+	{% endblock content_div_start %}
 
 	{% block content_row %}
 		<div class="row">
@@ -44,7 +45,6 @@
 		</div>
 		<div id="modalDialog" style="display: none"><h1>&nbsp;</h1></div>
 	{% endblock content_row %}
-
 
 
 	{% block foot_script %}
@@ -168,7 +168,7 @@
 				}
 
 
-				$(function() {
+				$(function () {
 					$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 						//save the latest tab; use cookies if you like 'em better:
 						localStorage.setItem('lastTab', $(e.target).attr('id'));
@@ -177,7 +177,7 @@
 					//go to the latest tab, if it exists:
 					var lastTab = localStorage.getItem('lastTab');
 					if (lastTab) {
-						$('#'+lastTab).tab('show');
+						$('#' + lastTab).tab('show');
 					}
 				});
 			});
