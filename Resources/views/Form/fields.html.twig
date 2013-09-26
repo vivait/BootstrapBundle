@@ -51,7 +51,7 @@
     {% if label is empty %}
         {% set label = name|humanize %}
     {% endif %}
-    <label class="control-label" for="{{ id }}">
+	<label class="control-label col-lg-3" for="{{ id }}">
         {{ label|trans }}{% if required %}&nbsp;<i class="icon-info-sign" title="This field is required"></i>{% endif %}:&nbsp;
     </label>
 {% endblock %}
