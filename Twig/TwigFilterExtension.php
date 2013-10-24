@@ -2,7 +2,7 @@
 namespace Vivait\BootstrapBundle\Twig;
 
 use \Twig_Filter_Function;
-use \Twig_Filter_Method;
+use Symfony\Component\Intl\NumberFormatter\NumberFormatter;
 
 class TwigFilterExtension extends \Twig_Extension {
     public function getName() {
@@ -38,9 +38,16 @@ class TwigFilterExtension extends \Twig_Extension {
 			return 'Unknown';
 		}
 	}
-	
-	public function moneyFilter($float) {
-		return number_format($float,2,'.',',');
+
+	public function moneyFilter($float,$currency = NULL) {
+		$nf = new NumberFormatter('en', NumberFormatter::CURRENCY);
+		if($currency) {
+			return $nf->formatCurrency($float,$currency);
+		} else {
+			return number_format($float,2,'.',',');
+		}
+
+
 	}
 
 	public function file_exists($file) {

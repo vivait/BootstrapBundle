@@ -1,0 +1,11 @@
+{#{% include 'VivaitBootstrapBundle:Default:jsonloader.html.twig' with {'htmlid':'','refresh':'','jsonsource':'','template':''} %}#}
+<script>
+	var refresh_{{ template }} = function () {
+		$.ajaxSetup({  cache: false  });
+		$.getJSON('{{ jsonsource }}', function (data) {
+			$("#{{ htmlid }}").html(Twig.render({{ template }}, data));
+			jQuery("abbr.timeago").timeago();
+		});}
+	setInterval(refresh_{{ template }}, {{ refresh * 1000 }});
+	refresh_{{ template }}();
+</script>

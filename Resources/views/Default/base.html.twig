@@ -10,6 +10,7 @@
 		'@MopaBootstrapBundle/Resources/public/less/eyecon-datepicker.less'
 		'@VivaitBootstrapBundle/Resources/public/css/jquery.dialog2.css'
 		'@VivaitBootstrapBundle/Resources/public/css/bootstrap.css'
+		'@VivaitBootstrapBundle/Resources/public/css/offcanvassidebar.css'
 		'@VivaitBootstrapBundle/Resources/public/css/messenger.css'
 		'@VivaitBootstrapBundle/Resources/public/css/messenger-theme-future.css' %}
 		<link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen"/>
@@ -48,11 +49,7 @@
 
 
 	{% block foot_script %}
-		{# To only use a subset or add more js overwrite and copy paste this block
-		To speed up page loads save a copy of jQuery in your project and override this block to include the correct path
-		Otherwise the regeneration is done on every load in dev more with use_controller: true
-		 #}
-
+		{{ parent() }}
 		{% javascripts
 		'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery-1.10.2.min.js'
 		'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery.dialog2.js'
@@ -65,61 +62,46 @@
 		'@VivaitBootstrapBundle/Resources/public/js/vendor/Chart.min.js'
 		'@VivaitBootstrapBundle/Resources/public/js/messenger.min.js'
 		'@VivaitBootstrapBundle/Resources/public/js/messenger-theme-future.js'
-		'@MopaBootstrapBundle/Resources/bootstrap/js/transition.js'
-		'@MopaBootstrapBundle/Resources/bootstrap/js/alert.js'
-		'@MopaBootstrapBundle/Resources/bootstrap/js/modal.js'
-		'@MopaBootstrapBundle/Resources/bootstrap/js/dropdown.js'
-		'@MopaBootstrapBundle/Resources/bootstrap/js/scrollspy.js'
-		'@MopaBootstrapBundle/Resources/bootstrap/js/tab.js'
-		'@MopaBootstrapBundle/Resources/bootstrap/js/tooltip.js'
-		'@MopaBootstrapBundle/Resources/bootstrap/js/popover.js'
-		'@MopaBootstrapBundle/Resources/bootstrap/js/button.js'
-		'@MopaBootstrapBundle/Resources/bootstrap/js/collapse.js'
-		'@MopaBootstrapBundle/Resources/bootstrap/js/carousel.js'
-		'@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
-		'@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
-		'@MopaBootstrapBundle/Resources/public/js/eyecon-bootstrap-datepicker.js' %}
+		"%kernel.root_dir%/../vendor/jms/twig-js/twig.js" %}
 		<script type="text/javascript" src="{{ asset_url }}"></script>
 		{% endjavascripts %}
 
+
+
 		<script>
-
-			$(function() {
-				var json, tabsState;
-				$('a[data-toggle="pill"], a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-					var href, json, parentId, tabsState;
-					tabsState = localStorage.getItem("tabs-state");
-					json = JSON.parse(tabsState || "{}");
-					parentId = $(e.target).parents("ul.nav.nav-pills, ul.nav.nav-tabs").attr("id");
-					href = $(e.target).attr('href');
-					json[parentId] = href;
-					return localStorage.setItem("tabs-state", JSON.stringify(json));
-				});
-				tabsState = localStorage.getItem("tabs-state");
-				json = JSON.parse(tabsState || "{}");
-				$.each(json, function(containerId, href) {
-					var a_el = $("#" + containerId + " a[href=" + href + "]");
-					$(a_el).parent().addClass("active");
-					$(href).addClass("active in");
-					return $(a_el).tab('show');
-				});
-				$("ul.nav.nav-pills, ul.nav.nav-tabs").each(function() {
-					var $this = $(this);
-					if (!json[$this.attr("id")]) {
-						var a_el = $this.find("a[data-toggle=tab]:first, a[data-toggle=pill]:first"),
-								href = $(a_el).attr('href');
-						$(a_el).parent().addClass("active");
-						$(href).addClass("active in");
-						return $(a_el).tab("show");
-					}
-				});
-			});
-
 			$(document).ready(function () {
+//				$(function () {
+//					var json, tabsState;
+//					$('a[data-toggle="pill"], a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+//						var href, json, parentId, tabsState;
+//						tabsState = localStorage.getItem("tabs-state");
+//						json = JSON.parse(tabsState || "{}");
+//						parentId = $(e.target).parents("ul.nav.nav-pills, ul.nav.nav-tabs").attr("id");
+//						href = $(e.target).attr('href');
+//						json[parentId] = href;
+//						return localStorage.setItem("tabs-state", JSON.stringify(json));
+//					});
+//					tabsState = localStorage.getItem("tabs-state");
+//					json = JSON.parse(tabsState || "{}");
+//					$.each(json, function (containerId, href) {
+//						var a_el = $("#" + containerId + " a[href=" + href + "]");
+//						$(a_el).parent().addClass("active");
+//						$(href).addClass("active in");
+//						return $(a_el).tab('show');
+//					});
+//					$("ul.nav.nav-pills, ul.nav.nav-tabs").each(function () {
+//						var $this = $(this);
+//						if (!json[$this.attr("id")]) {
+//							var a_el = $this.find("a[data-toggle=tab]:first, a[data-toggle=pill]:first"),
+//									href = $(a_el).attr('href');
+//							$(a_el).parent().addClass("active");
+//							$(href).addClass("active in");
+//							return $(a_el).tab("show");
+//						}
+//					});
+//				});
 
-
-
-				$('.make-popover').popover();
+//				$('.make-popover').popover();
 
 				$(document).on("click", ".confirm-message", function (e) {
 					var cnfm = confirm($(this).data('confirm-message'));
@@ -165,6 +147,10 @@
 					} else {
 						hidden.name = $(this).data("hiddenname");
 					}
+				});
+
+				$(document).on("click", "#sidebar-activate", function () {
+					$('#sidebar').toggleClass('active')
 				});
 
 				jQuery("abbr.timeago").timeago();

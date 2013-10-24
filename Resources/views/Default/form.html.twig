@@ -1,6 +1,7 @@
 {% form_theme form.form 'VivaitBootstrapBundle:Form:fields.html.twig' %}
 <h1>{{ form.title }}</h1>
 <form novalidate class="ajax form-horizontal" id="modelDialogForm" action="{{ form.action }}" method="post" {{ form_enctype(form.form) }}>
+	{{ form.content|default('')|raw }}
 	{{ form_errors(form.form) }}
 	{{ form_widget(form.form) }}
 	<input type="hidden" id="parent" name="parent" value="{{ form.parent }}"/>
