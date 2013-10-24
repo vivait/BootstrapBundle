@@ -21,7 +21,14 @@
 		 #}
 	{% endblock head_style %}
 
-
+{% block head_script %}
+	{{ parent() }}
+	{% javascripts
+	'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery-1.10.2.min.js'
+	%}
+	<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock head_script %}
 
 {% block navbar %}
 	{% include 'VivaitBootstrapBundle:Default:menu.html.twig' %}
@@ -51,7 +58,6 @@
 	{% block foot_script %}
 		{{ parent() }}
 		{% javascripts
-		'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery-1.10.2.min.js'
 		'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery.dialog2.js'
 		'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery.controls.js'
 		'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery.form.js'
