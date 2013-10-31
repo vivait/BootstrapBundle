@@ -18,7 +18,7 @@
         {% if close_tag == true %}
             {% set close_tag = 'a' %}
         {% endif %}
-        <{{ close_tag }} class="close" data-dismiss="alert" {% if close_tag == 'a' %}href="#"{% endif %}>×</{{ close_tag }}>
+        <{{ close_tag }} class="close" data-dismiss="alert" {% if close_tag == 'a' %}href="#"{% endif %}>?</{{ close_tag }}>
     {% endif %}
     {% if heading|default(false) %}
     <h4 class="alert-heading">{{ heading }}</h4>
@@ -37,11 +37,11 @@
     {% if app.session.flashbag.peekAll|length > 0 %}
         {% for type, messages in app.session.flashbag.all %}
             {% for message in messages %}
-                {% if type == 'fos_user_success' %}
-                    {% set type = 'success' %}
-                    {% set domain = 'FOSUserBundle' %}
+                {% if type == 'download' %}
+						downloadFile('{{ asset(message) }}');
+				{% else %}
+					{{ flash_messages.flash(type, message, close, use_raw, class, domain) }}
                 {% endif %}
-                {{ flash_messages.flash(type, message, close, use_raw, class, domain) }}
             {% endfor %}
         {% endfor %}
     {% endif %}
