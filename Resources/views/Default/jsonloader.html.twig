@@ -10,11 +10,9 @@
                         jQuery("abbr.timeago").timeago();
                     }
                 });
-
-                return this;
             },
             load = function() {
-                setInterval(refresh_{{ template }}(), {{ refresh * 1000 }});
+                setInterval(refresh_{{ template }}, {{ refresh * 1000 }});
                 refresh_{{ template }}();
             };
 
