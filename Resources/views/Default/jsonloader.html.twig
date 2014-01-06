@@ -2,11 +2,14 @@
 <script>
     (function(){
         var refresh_{{ template }} = function () {
-                $.ajaxSetup({  cache: false  });
-                $.getJSON('{{ jsonsource }}', function (data) {
-                    $("#{{ htmlid }}").html(Twig.render({{ template }}, data));
-                    jQuery("abbr.timeago").timeago();
-                });
+                $.ajax('{{ jsonsource }}', {
+                    dataType: "json",
+                    cache: false,
+                    success: function (data) {
+                        $("#{{ htmlid }}").html(Twig.render({{ template }}, data));
+                        jQuery("abbr.timeago").timeago();
+                    }
+                }
 
                 return this;
             },
