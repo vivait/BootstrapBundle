@@ -7,7 +7,7 @@
 		{# Override this block to add your own files! #}
 		{% stylesheets
 		'@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
-		'@MopaBootstrapBundle/Resources/public/less/eyecon-datepicker.less'
+		'@MopaBootstrapBundle/Resources/public/components/smalot-bootstrap-datetimepicker/less/datetimepicker.less'
 		'@VivaitBootstrapBundle/Resources/public/css/jquery.dialog2.css'
 		'@VivaitBootstrapBundle/Resources/public/css/bootstrap.css'
 		'@VivaitBootstrapBundle/Resources/public/css/offcanvassidebar.css'
@@ -68,6 +68,8 @@
 		'@VivaitBootstrapBundle/Resources/public/js/vendor/Chart.min.js'
 		'@VivaitBootstrapBundle/Resources/public/js/messenger.min.js'
 		'@VivaitBootstrapBundle/Resources/public/js/messenger-theme-future.js'
+        '@MopaBootstrapBundle/Resources/public/components/smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.js'
+        '@MopaBootstrapBundle/Resources/public/components/smalot-bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.uk.js'
 		"%kernel.root_dir%/../vendor/jms/twig-js/twig.js" %}
 		<script type="text/javascript" src="{{ asset_url }}"></script>
 		{% endjavascripts %}
