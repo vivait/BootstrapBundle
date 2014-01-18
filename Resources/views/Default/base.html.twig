@@ -43,10 +43,10 @@
 
 	{% block content_row %}
 		<div class="row">
-			<div class="navbar">
+			<div class="navbar navbar-default">
 				<div class="navbar-inner">
 					<div class="navbar-brand">{% block sectiontitle %}{% endblock %}</div>
-					<div class="pull-right">{% block sectionlinks %}{% endblock %}</div>
+					<div class="pull-right navbar-form">{% block sectionlinks %}{% endblock %}</div>
 				</div>
 			</div>
 			{% block section %}{% endblock %}
