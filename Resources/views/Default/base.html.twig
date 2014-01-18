@@ -161,6 +161,7 @@
 					$('#sidebar').toggleClass('active')
 				});
 
+				jQuery.timeago.settings.allowFuture = true;
 				jQuery("abbr.timeago").timeago();
 
 				$(document).delegate(".modal", "dialog2.content-update", function () {
@@ -232,8 +233,6 @@
 				{% if app.session.flashbag.peekAll|length > 0 %}
 				{{ session_flash() }}
 				{% endif %}
-
-
 			});
 
 
