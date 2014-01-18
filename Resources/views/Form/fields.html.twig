@@ -54,7 +54,7 @@
         {% if errors|length > 0 %}
 		<div class="controls">
             {% for error in errors %}
-			<span class="help-block"><i class="icon-exclamation-sign"></i>
+			<span class="help-block"><i class="glyphicon glyphicon-exclamation-sign"></i>
 				{{  error.messagePluralization is null
                         ? error.messageTemplate|trans(error.messageParameters, 'validators')
                         : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators')
