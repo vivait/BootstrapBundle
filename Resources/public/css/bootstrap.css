@@ -3,3 +3,14 @@
     background-color: #428bca;
     border-color: #357ebd;
 }
+.tab-pane > .row {
+	margin-top: 20px;
+}
+.panel-heading + .table th:first-child,
+.panel-heading + .table td:last-child {
+	padding-left: 15px;
+}
+.panel-heading + .table th:first-child,
+.panel-heading + .table td:last-child {
+	padding-right: 15px;
+}
