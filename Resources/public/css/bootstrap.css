@@ -14,3 +14,6 @@
 .panel-heading + .table td:last-child {
 	padding-right: 15px;
 }
+.modal-dialog {
+	width: 60%;
+}
