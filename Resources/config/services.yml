@@ -10,3 +10,8 @@ services:
       class: Vivait\BootstrapBundle\Twig\TwigFilterExtension
       tags:
          -  { name: twig.extension }
+
+    vivait_bootstrap.accordion.widget:
+      class: Vivait\BootstrapBundle\Form\Type\AccordionType
+      tags:
+         -  { name: form.type,  alias: accordion }

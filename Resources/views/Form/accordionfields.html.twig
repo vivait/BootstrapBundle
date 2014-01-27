@@ -1,0 +1,99 @@
+{# TODO: Change me so I can only be used for form_theme specific theming #}
+
+{% block accordion_row %}
+		{% set widget_form_group_attr = widget_form_group_attr|merge({'id': 'collection' ~ id ~ '_form_group', 'class': widget_form_group_attr.class ~ ' collection-items panel-group ' ~ id ~ '_form_group'}) %}
+
+		{{ form_errors(form) }}
+    <div {% for attrname,attrvalue in widget_form_group_attr %} {{attrname}}="{{attrvalue}}"{% endfor %}{% if prototype is defined %} data-prototype="{{ block('accordion_prototype')|e }}"{% endif %}>
+        {{ block('accordion_rows') }}
+				{{ form_rest(form) }}
+    </div>
+
+		<div>
+			{{ block('form_widget_add_btn') }}
+		</div>
+
+    <script>
+        jQuery('#{{ widget_form_group_attr.id }}').on('change', '.panel .accordion-label-field', function(){
+            var p = $(this).parents('.panel'),
+								f = p.find('.accordion-label-field'),
+								v = '';
+
+						f.each(function() {
+							var val = '',
+									$t = $(this);
+
+							if ($t.is('select')) {
+								val = $t.find(':selected').text();
+							}
+							else {
+								val = $t.val();
+							}
+
+							v += val ? ((v ? ' ' : '') + val) : '';
+						});
+
+            p.find('.accordion-toggle').text(v ? v : "{{ block('accordion_rows_entry_label')|e('js') }}");
+        }).find('.panel .accordion-label-field').trigger('change');
+    </script>
+{% endblock %}
+
+{% block accordion_rows %}
+    {% for child in form %}
+			{% if 'hidden' not in child.vars.block_prefixes %}
+				{{ block('accordion_rows_entry') }}
+			{% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block accordion_rows_entry %}
+	{% set widget_form_group_attr = widget_form_group_attr|merge({class: 'collection-item panel panel-default'}) %}
+	{% if errors|length > 0 %}
+		{# Add Error Class to Widget Wrapper#}
+		{% set widget_form_group_attr = widget_form_group_attr|merge({'class': widget_form_group_attr.class|default('') ~ ' has-error'}) %}
+	{% endif %}
+		<div{% if help_widget_popover.title is not sameas(null) %}{{ block('help_widget_popover') }}{% endif %} {% for attrname,attrvalue in widget_form_group_attr %} {{attrname}}="{{attrvalue}}"{% endfor %}>
+        <div class="panel-heading">
+            {{ block('accordion_rows_entry_heading') }}
+        </div>
+        <div id="coll_{{ child.vars.id }}" class="panel-collapse collapse{% if loop.first|default(false) %} in{% endif %}">
+            <div class="panel-body">
+                {{ form_errors(child) }}
+                {{ form_widget(child) }}
+                {{ form_rest(child) }}
+								{% if child.vars.widget_remove_btn|default(null) and form.vars.allow_delete|default(false) %}
+									{% set widget_remove_btn = child.vars.widget_remove_btn %}
+									{{ block('form_widget_remove_btn') }}
+								{% endif %}
+
+							{% if expand_js|default(false) %}
+							<script>
+								$('#coll_label_{{ child.vars.id }}').trigger('click.bs.collapse.data-api');
+							</script>
+							{% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block accordion_rows_entry_heading %}
+    <h4 class="panel-title">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#collection{{ form.vars.id }}_form_group" href="#coll_{{ child.vars.id }}" id="coll_label_{{ child.vars.id }}">
+            {% block accordion_rows_entry_label %}
+                {% if form.vars.label is not empty %}
+                    {{ form.vars.label|trans }}
+                {% elseif form.vars.name is not empty %}
+                    {{ form.vars.name|humanize }}
+                {% else %}
+                    {{ 'Untitled'|trans }}
+                {% endif %}
+            {% endblock %}
+        </a>
+    </h4>
+{% endblock %}
+
+{% block accordion_prototype %}
+  {% set child = prototype %}
+  {% set expand_js = true %}
+	{{ block('accordion_rows_entry') }}
+{% endblock %}
