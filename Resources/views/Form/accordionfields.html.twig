@@ -47,7 +47,7 @@
 {% endblock %}
 
 {% block accordion_rows_entry %}
-	{% set widget_form_group_attr = widget_form_group_attr|merge({class: 'collection-item panel panel-default'}) %}
+	{% set widget_form_group_attr = child.vars.widget_form_group_attr|merge({class: 'collection-item panel panel-default panel-info'}) %}
 	{% if errors|length > 0 %}
 		{# Add Error Class to Widget Wrapper#}
 		{% set widget_form_group_attr = widget_form_group_attr|merge({'class': widget_form_group_attr.class|default('') ~ ' has-error'}) %}

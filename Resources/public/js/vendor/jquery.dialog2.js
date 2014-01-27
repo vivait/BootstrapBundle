@@ -333,8 +333,9 @@
 
             dialog
                 .removeClass("opened")
-                .parent().parent().parent().hide().end()
-                .trigger("dialog2.closed");
+                .parent().parent().parent().hide();
+
+            dialog.trigger("dialog2.closed");
         },
 
         /**
