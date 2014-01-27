@@ -18,66 +18,6 @@
 
 
 <script>
-{% if form.collection is defined %}
-		{% for key, collection in form.collection %}
-		var collectionHolder_{{ key }} = $('div#form_{{ key }}');
-		var $addTagLink_{{ key }} = $('<a href="#" class="add_tag_link btn btn-small"><i class="icon-plus-sign"></i> Add {{ collection }}</a></a>');
-		var $newLinkLi_{{ key }} = $('<div></div>').append($addTagLink_{{ key }});
-		{% endfor %}
-
-		jQuery(document).ready(function () {
-			{% for key, collection in form.collection %}
-			collectionHolder_{{ key }}.append($newLinkLi_{{ key }});
-			collectionHolder_{{ key }}.data('index', collectionHolder_{{ key }}.find(':input').length);
-			$addTagLink_{{ key }}.on('click', function (e) {
-				e.preventDefault();
-				addTagForm(collectionHolder_{{ key }}, $newLinkLi_{{ key }});
-			});
-			collectionHolder_{{ key }}.find('.row-collection').each(function () {
-				addTagFormDeleteLink($(this));
-			});
-			{% endfor %}
-
-		});
-
-		function addTagForm(collectionHolder, $newLinkLi) {
-			var prototype = collectionHolder.data('prototype');
-			var index = collectionHolder.data('index');
-			var newForm = prototype.replace(/__name__/g, index);
-			collectionHolder.data('index', index + 1);
-			var $newFormLi = $('<div></div>').append(newForm);
-			addTagFormDeleteLink($newFormLi);
-			$newLinkLi.before($newFormLi);
-
-
-			$('.datetime-picker').datetimepicker({
-				format: 'dd/mm/yyyy hh:ii',
-				autoclose: true,
-				todayHighlight: true,
-				minuteStep: 15
-			});
-			$('.date-picker').datetimepicker({
-				format: 'dd/mm/yyyy',
-				autoclose: true,
-				todayHighlight: true,
-				startView: 4,
-				minView: 2
-			});
-
-
-		}
-
-		function addTagFormDeleteLink($tagFormLi) {
-			var $removeFormA = $('<a class="btn btn-danger" style="float:right" href="#"><i class="icon-trash icon-white"></i> Delete</a>');
-			$tagFormLi.prepend($removeFormA);
-			$removeFormA.on('click', function (e) {
-				e.preventDefault();
-				if (confirm('Are you sure to delete this item ?')) {
-					$tagFormLi.remove();
-				}
-			});
-		}
-{% endif %}
 // Datepicker configuration
 $('[data-provider="datepicker"]').datetimepicker({
     autoclose: true,
