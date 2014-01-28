@@ -1,13 +1,27 @@
+{% if app.request.headers.get('X-REQUESTED-WITH') == 'XMLHttpRequest' %}
+	{% set extend_page = viva_app_twig_blank_base|default('VivaitBootstrapBundle:Default:blank_base.html.twig') %}
+{% else %}
+	{% set extend_page = viva_app_twig_base|default('VivaitBootstrapBundle:Default:base.html.twig') %}
+{% endif %}
+
+{% extends extend_page %}
 {% form_theme form.form 'VivaitBootstrapBundle:Form:fields.html.twig' %}
-<h1>{{ form.title }}</h1>
+
+{% block sectiontitle %}
+	{{ form.title }}
+{% endblock %}
+
+{% block section %}
 <form novalidate class="ajax form-horizontal" id="modelDialogForm" action="{{ form.action }}" method="post" {{ form_enctype(form.form) }}>
 	{{ form.content|default('')|raw }}
 	{{ form_errors(form.form) }}
 	{{ form_widget(form.form) }}
 	<input type="hidden" id="parent" name="parent" value="{{ form.parent }}"/>
 
-	<div class="form-actions">
-		<a class="btn close-dialog" href="#">Cancel</a>
+	<div class="form-actions form-group text-center col-sm-12">
+		{% if is_blank_page %}
+			<a class="btn close-dialog" href="#">Cancel</a>
+		{% endif %}
 		<input type="submit" class="btn btn-primary" value="Submit"/>
 	</div>
 </form>
@@ -54,3 +68,4 @@ $('input[type=hidden]', '.date').each(function(){
     }
 });
 </script>
+{% endblock %}

@@ -3,13 +3,14 @@
 {% block accordion_row %}
 		{% set widget_form_group_attr = widget_form_group_attr|merge({'id': 'collection' ~ id ~ '_form_group', 'class': widget_form_group_attr.class ~ ' collection-items panel-group ' ~ id ~ '_form_group'}) %}
 
+	<div class="col-sm-12">
 		{{ form_errors(form) }}
     <div {% for attrname,attrvalue in widget_form_group_attr %} {{attrname}}="{{attrvalue}}"{% endfor %}{% if prototype is defined %} data-prototype="{{ block('accordion_prototype')|e }}"{% endif %}>
         {{ block('accordion_rows') }}
 				{{ form_rest(form) }}
     </div>
 
-		<div>
+		<div class="form-group">
 			{{ block('form_widget_add_btn') }}
 		</div>
 
@@ -36,6 +37,7 @@
             p.find('.accordion-toggle').text(v ? v : "{{ block('accordion_rows_entry_label')|e('js') }}");
         }).find('.panel .accordion-label-field').trigger('change');
     </script>
+	</div>
 {% endblock %}
 
 {% block accordion_rows %}
