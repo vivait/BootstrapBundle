@@ -24,6 +24,13 @@
 				accordion.on('hide.bs.collapse', '.panel', function() {
 					$(this).removeClass('in');
 				});
+
+				accordion.find('.panel').each(function() {
+					if ($(this).find('.has-error').length) {
+						$(this).removeClass('panel-info').addClass('panel-danger');
+					}
+				});
+
 				accordion.on('change', '.panel .accordion-label-field', function(){
 						var p = $(this).parents('.panel'),
 								f = p.find('.accordion-label-field'),
@@ -96,21 +103,16 @@
 
 {% block accordion_rows_entry_heading %}
     <h4 class="panel-title" data-toggle="collapse" data-parent="#collection{{ form.vars.id }}_form_group">
-				<small class="pull-right">
-						<div class="collapse-show-active">
-							<a data-toggle="collapse" data-parent="#collection{{ form.vars.id }}_form_group" href="#coll_{{ child.vars.id }}">
-								<em class="glyphicon glyphicon-chevron-up"></em> {{ 'Hide'|trans }}
-							</a>
-						</div>
-						<div class="collapse-hide-active">
-							<a data-toggle="collapse" data-parent="#collection{{ form.vars.id }}_form_group" href="#coll_{{ child.vars.id }}">
-								<em class="glyphicon glyphicon-chevron-down"></em> {{ 'Show'|trans }}
-							</a>
-						</div>
-					</a>
-				</small>
+				<a class="collapse-show-active pull-right" data-toggle="collapse" data-parent="#collection{{ form.vars.id }}_form_group" href="#coll_{{ child.vars.id }}">
+					<small><em class="glyphicon glyphicon-chevron-up"></em> {{ 'Hide'|trans }}</small>
+				</a>
+				<a class="collapse-hide-active pull-right" data-toggle="collapse" data-parent="#collection{{ form.vars.id }}_form_group" href="#coll_{{ child.vars.id }}">
+					<small><em class="glyphicon glyphicon-chevron-down">&nbsp;</em> {{ 'Show'|trans }}</small>
+				</a>
+
+				<em class="glyphicon glyphicon-exclamation-sign collapse-show-danger pull-left"></em>&nbsp;
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#collection{{ form.vars.id }}_form_group" href="#coll_{{ child.vars.id }}" id="coll_label_{{ child.vars.id }}">
-            {% block accordion_rows_entry_label %}
+	         {% block accordion_rows_entry_label %}
                 {% if form.vars.label is not empty %}
                     {{ form.vars.label|trans }}
                 {% elseif form.vars.name is not empty %}
