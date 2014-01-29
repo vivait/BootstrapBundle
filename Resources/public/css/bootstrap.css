@@ -17,3 +17,14 @@
 .modal-dialog {
 	width: 60%;
 }
+
+.panel .collapse-show-active {
+	display: none;
+}
+
+.panel.in .collapse-hide-active {
+	display: none;
+}
+.panel.in .collapse-show-active {
+	display: inherit;
+}
