@@ -2,7 +2,7 @@
 {% extends 'MopaBootstrapBundle::base.html.twig' %}
 {% from 'VivaitBootstrapBundle:Default:flash.html.twig' import session_flash %}
 
-{% block title %}Viva Application Platform{% endblock %}
+{% block title %}{{ viva_app_name|default('Viva') }} - {{ block('sectiontitle')|striptags }}{% endblock %}
 
     {% block head_style %}
 		{# Override this block to add your own files! #}
