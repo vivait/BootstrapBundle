@@ -7,7 +7,7 @@
                     cache: false,
                     success: function (data) {
                         $("#{{ htmlid }}").html(Twig.render({{ template }}, data));
-                        jQuery("abbr.timeago").timeago();
+                        jQuery("abbr[data-livestamp]").livestamp();
                     }
                 });
             },

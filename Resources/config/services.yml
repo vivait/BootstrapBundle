@@ -15,3 +15,8 @@ services:
       class: Vivait\BootstrapBundle\Form\Type\AccordionType
       tags:
          -  { name: form.type,  alias: accordion }
+
+    vivait_bootstrap.datesince.widget:
+      class: Vivait\BootstrapBundle\Form\Type\DateSinceType
+      tags:
+         -  { name: form.type,  alias: datesince }
