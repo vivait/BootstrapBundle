@@ -69,7 +69,7 @@
 
 	{% set content %}<input type="text" class="date-calculator-modifier form-control" placeholder="{{ 'E.g. 4 years, 2 months'|trans }}"{% for attrname,attrvalue in calc_attr %} {{attrname}}="{{attrvalue}}"{% endfor %} />{% endset %}
 
-	<a href="#collapseOne" class="btn btn-default date-calculator" data-container="body" data-title="{{ 'At this address for:'|trans }}" data-content="{{ content|e }}" data-toggle="popover" data-placement="bottom" data-target="#collapseOne"><em class="glyphicon glyphicon-calendar"></em> Calculate</a>
+	<a href="#collapseOne" class="btn btn-default date-calculator" data-container="#coll_{{ form.parent.vars.id }} .panel-body" data-title="{{ 'At this address for:'|trans }}" data-content="{{ content|e }}" data-toggle="popover" data-placement="bottom" data-target="#collapseOne"><em class="glyphicon glyphicon-calendar"></em> Calculate</a>
 
 	<script>
 		var _set = false;
