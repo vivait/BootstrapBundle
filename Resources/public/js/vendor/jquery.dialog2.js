@@ -259,7 +259,7 @@
                     beforeSubmit: dialog.__ajaxStartTrigger,
                     beforeSend: dialog.__ajaxBeforeSend,
                     error: function() {
-                        throw dialogError("Form submit failed: " + $.makeArray(arguments));
+                        throw Error("Form submit failed: " + $.makeArray(arguments));
                     }
                 };
 
