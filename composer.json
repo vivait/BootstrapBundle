@@ -14,7 +14,7 @@
         "mopa/composer-bridge": "dev-master",
         "mopa/bootstrap-bundle": "dev-master",
         "twbs/bootstrap": "v3.0.0",
-		"leafo/lessphp": "dev-master"
+		"leafo/lessphp": "dev-master#b7cd5c79e82666bcd2dfadb304342311209fb527"
     },
     "autoload": {
         "psr-0": {
