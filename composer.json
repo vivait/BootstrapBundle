@@ -13,7 +13,8 @@
 		"moment/moment": "2.5.x",
         "mopa/composer-bridge": "dev-master",
         "mopa/bootstrap-bundle": "dev-master",
-        "twbs/bootstrap": "v3.0.0"
+        "twbs/bootstrap": "v3.0.0",
+		"leafo/lessphp": "dev-master"
     },
     "autoload": {
         "psr-0": {
