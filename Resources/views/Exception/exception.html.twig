@@ -1,0 +1,16 @@
+
+{% extends 'VivaitBootstrapBundle:Default:base.html.twig' %}
+
+{% block sectiontitle %}
+	An error occured
+{% endblock %}
+
+{% block section %}
+	<div class="alert alert-danger">
+		An error has occurred within the system. Our engineers have been notified and will look in to it ASAP.
+
+		<p>
+			<a href="{{ path('viva_app_homepage') }}" class="alert-link">Go back to the main page</a>
+		</p>
+	</div>
+{% endblock %}
