@@ -4,7 +4,10 @@
 	{% endblock %}
 
 	{% block menu %}
-		{{ mopa_bootstrap_menu('bootstrap') }}
+
+		{% for child in knp_menu_get('bootstrap') %}
+			{{ mopa_bootstrap_menu(child) }}
+		{% endfor %}
 
 		<form class="navbar-form navbar-right" style="width:200px;" action="{{ path('viva_apollo_members') }}" method="get">
 			<div class="input-group">
