@@ -21,7 +21,7 @@ class ExceptionListener
 
 	public function onKernelException(GetResponseForExceptionEvent $event)
 	{
-		//if ('prod' == $this->kernel->getEnvironment()) {
+		if ('prod' == $this->kernel->getEnvironment()) {
 			// exception object
 			$exception = $event->getException();
 
@@ -44,6 +44,6 @@ class ExceptionListener
 
 			// set the new $response object to the $event
 			$event->setResponse($response);
-		//}
+		}
 	}
 }
