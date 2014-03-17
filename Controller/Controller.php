@@ -16,8 +16,8 @@ class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Controller
 		$current = $request->attributes->get('_route');
 		$parent = $request->query->get('parent', $request->request->get('parent', $request->headers->get('referer')));
 
-		if ($avoid_loop && $parent == $current) {
-			$parent = 'viva_app_homepage';
+		if (!$parent || ($avoid_loop && $parent == $current)) {
+			$parent = $this->generateUrl('viva_app_homepage');
 		}
 
 		if ($request->headers->get('X-REQUESTED-WITH') == 'XMLHttpRequest') {
