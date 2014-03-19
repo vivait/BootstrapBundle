@@ -3,32 +3,28 @@
 namespace Vivait\BootstrapBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Viva\ApolloBundle\Event\EntityEvent;
 
 class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Controller
 {
-	public function redirectBack(Request $request) {
+	/**
+	 * @param Request $request
+	 * @param bool $avoid_loop Avoid redirecting back to the current page
+	 * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+	 */
+	public function redirectBack(Request $request, $avoid_loop = false) {
 		$current = $request->attributes->get('_route');
 		$parent = $request->query->get('parent', $request->request->get('parent', $request->headers->get('referer')));
 
-		return $this->render('VivaitBootstrapBundle:Default:redirect.html.twig', array(
-			'redirect' => ($parent != $current) ? $parent : 'viva_app_homepage'
-		));
-	}
+		if (!$parent || ($avoid_loop && $parent == $current)) {
+			$parent = $this->generateUrl('viva_app_homepage');
+		}
 
-	public function onSuccess(EntityEvent $event) {
-		$this->getFlashBag()->add('success', 'The entry has been ' . ($event->isNew() ? 'created' : 'modified') . ' successfully!');
-	}
+		if ($request->headers->get('X-REQUESTED-WITH') == 'XMLHttpRequest') {
+			return $this->render('VivaitBootstrapBundle:Default:redirect.html.twig', array(
+				'redirect' => $parent
+			));
+		}
 
-	public function onFailure() {
-		$this->getFlashBag()->add('error', 'Could not find the item you are looking for, maybe someone has just deleted it?');
-	}
-
-	public function redirectAndFlash($entity) {
-		$this->onSuccess(new EntityEvent($entity, true));
-	}
-
-	public function getFlashBag() {
-		return $this->get('session')->getFlashBag();
+		return $this->redirect($parent);
 	}
 }
