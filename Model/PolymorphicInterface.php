@@ -31,10 +31,4 @@ interface PolymorphicInterface
 	 * @return integer
 	 */
 	public function getTypeID();
-
-	/**
-	 * Returns an instance of the form type
-	 * @return \Symfony\Component\Form\AbstractType
-	 */
-	public function getFormType();
 }
