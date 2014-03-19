@@ -1,51 +1,47 @@
 <?php
 
-namespace Vivait\BootstrapBundle\Model;
+	namespace Vivait\BootstrapBundle\Model;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilder;
+	interface PolymorphicInterface {
 
-interface PolymorphicInterface
-{
-	/**
-	 * @return array
-	 */
-	public static function getAllTypes();
+		/**
+		 * These methods should be implemented on the "parent" polymorphic objects
+		 */
 
-	/**
-	 * @param $typeid
-	 * @return self
-	 */
-	public static function getObjectFromTypeID($typeid);
+		/**
+		 * Returns all objects that are used in this polymorphic association
+		 * @return array
+		 */
+		public static function generateAllPolyObjects();
 
-	#can't use abstract static functions for these due to PHP late static binding issues
+		/**
+		 * Generate a new polymorphic object from a specified service alias
+		 * @param $poly_alias
+		 * @return self
+		 */
+		public static function generatePolyObject($poly_alias);
 
-	/**
-	 * @return string
-	 */
-	public function getTypeName();
+		/**
+		 * These methods should be implemented on the "child" polymorphic objects
+		 */
 
-	/**
-	 * @return string
-	 */
-	public function getTypeDescription();
+		/**
+		 * Returns a unique service/form alias to be used for business logic and form generation.
+		 * Aliases returned here should be found in the service container
+		 * @return string
+		 */
+		public function getPolyAlias();
 
-	/**
-	 * @return integer
-	 */
-	public function getTypeID();
+		/**
+		 * Returns a label that can be used in selection dialogs
+		 * @return string
+		 */
+		public function getPolyLabel();
 
-	/**
-	 * This form will build the form depending on the requirements of the polymorphic class
-	 * @param FormBuilder $form
-	 * @return void
-	 * @deprecated
-	 */
-	public function buildForm(FormBuilder $form);
+		/**
+		 * Returns a short description that can be used in selection dialogs
+		 * @return string
+		 */
+		public function getPolyDescription();
 
-	/**
-	 * Returns an instance of the form type
-	 * @return AbstractType
-	 */
-	public function getFormType();
-}
+	}
