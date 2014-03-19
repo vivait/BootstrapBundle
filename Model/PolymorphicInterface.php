@@ -10,14 +10,14 @@
 
 		/**
 		 * Returns all objects that are used in this polymorphic association
-		 * @return array
+		 * @return PolymorphicInterface[]
 		 */
 		public static function generateAllPolyObjects();
 
 		/**
 		 * Generate a new polymorphic object from a specified service alias
 		 * @param $poly_alias
-		 * @return self
+		 * @return PolymorphicInterface
 		 */
 		public static function generatePolyObject($poly_alias);
 
