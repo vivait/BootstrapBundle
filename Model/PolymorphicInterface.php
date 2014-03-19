@@ -36,14 +36,6 @@ interface PolymorphicInterface
 	public function getTypeID();
 
 	/**
-	 * This form will build the form depending on the requirements of the polymorphic class
-	 * @param FormBuilder $form
-	 * @return void
-	 * @deprecated
-	 */
-	public function buildForm(FormBuilder $form);
-
-	/**
 	 * Returns an instance of the form type
 	 * @return AbstractType
 	 */
