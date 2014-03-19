@@ -3,7 +3,7 @@
 namespace Vivait\BootstrapBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Viva\ApolloBundle\Event\EntityEvent;
+use Vivait\BootstrapBundle\Event\EntityEvent;
 
 class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Controller
 {
