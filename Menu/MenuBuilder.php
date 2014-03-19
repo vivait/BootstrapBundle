@@ -14,6 +14,7 @@ class MenuBuilder {
 
 	/**
 	 * @param FactoryInterface $factory
+	 * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
 	 */
 	public function __construct(FactoryInterface $factory, EventDispatcherInterface $event_dispatcher) {
 		$this->factory = $factory;
@@ -27,7 +28,14 @@ class MenuBuilder {
 			'navbar' => true
 		]);
 
+		// TODO: Move me to a listener so I can be ordered/prioritised
+		$menu->addChild('search', [
+			'navbar' => true,
+			'pull-right' => true
+		])->setExtra('template', 'VivaitBootstrapBundle:Default:search.html.twig');
+
 		$this->event_dispatcher->dispatch(ConfigureMenuEvent::CONFIGURE, new ConfigureMenuEvent($this->factory, $menu));
+
 
 		return $menu;
 	}

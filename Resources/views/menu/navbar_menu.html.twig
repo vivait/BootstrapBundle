@@ -1,0 +1,32 @@
+{% extends 'knp_menu.html.twig' %}
+
+{% block linkElement %}
+	{% spaceless %}
+		{% import 'knp_menu.html.twig' as macros %}
+		<a href="{{ item.uri }}"{{ macros.attributes(item.linkAttributes) }}>
+			{% if item.extras.icon|default(false) %}
+				{{ mopa_bootstrap_icon(item.extras.icon, item.extras.icon_white|default(false)) }}{{ ' ' }}
+			{%- endif %}
+			{{ block('label') }}
+			{%- if item.extras.caret|default(false) %}
+				<b class="caret"></b>
+			{% endif -%}
+		</a>
+	{% endspaceless %}
+{% endblock %}
+
+{% block root %}
+	{% set currentItem = item %}
+	{% for item in currentItem.children %}
+		{% set listAttributes = item.childrenAttributes %}
+		{% set template = item.getExtra('template') %}
+
+		{% if template is not null %}
+			{% include template %}
+		{% else %}
+			{{ block('list') }}
+		{% endif %}
+	{% endfor %}
+{% endblock %}
+
+{% block label %}{% if options.allow_safe_labels and item.getExtra('safe_label', false) %}{{ item.label|trans()|raw }}{% else %}{{ item.label|trans() }}{% endif %}{% endblock %}

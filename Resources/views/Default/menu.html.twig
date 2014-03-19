@@ -4,29 +4,9 @@
 	{% endblock %}
 
 	{% block menu %}
-
-		{% for child in knp_menu_get('bootstrap') %}
-			{{ mopa_bootstrap_menu(child) }}
-		{% endfor %}
-
-		<form class="navbar-form navbar-right" style="width:200px;" action="{{ path('viva_apollo_members') }}" method="get">
-			<div class="input-group">
-				<span class="input-group-addon"><i class="icon glyphicon glyphicon-search"></i></span>
-				<input class="form-control" type="text" id="nav-searchbox" name="query" placeholder="Search..."
-							 value="{{ app.request.get('query') }}">
-			</div>
-		</form>
-
-		{#<!-- USER BADGE -->#}
-		{#<ul class="nav navbar-nav navbar-right">#}
-			{#{% include 'VivaitAuthBundle:Partials:usermenu.html.twig' %}#}
-			{#<li><a id="sidebar-activate" href="#"><span class="glyphicon glyphicon-tasks"></span></a></li>#}
-		{#</ul>#}
-		{#<!-- END USER BADGE -->#}
-
-
-		{#<!-- USER BADGE -->#}
-		{#<div id="placeholder_taskinbox"></div>#}
-
+		{{ knp_menu_render('bootstrap', {
+			'template': 'VivaitBootstrapBundle:menu:navbar_menu.html.twig',
+			'allow_safe_labels': true
+		}) }}
 	{% endblock %}
 {% endembed %}
