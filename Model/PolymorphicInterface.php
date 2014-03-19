@@ -1,34 +1,47 @@
 <?php
 
-namespace Vivait\BootstrapBundle\Model;
+	namespace Vivait\BootstrapBundle\Model;
 
-interface PolymorphicInterface
-{
-	/**
-	 * @return array
-	 */
-	public static function getAllTypes();
+	interface PolymorphicInterface {
 
-	/**
-	 * @param $typeid
-	 * @return self
-	 */
-	public static function getObjectFromTypeID($typeid);
+		/**
+		 * These methods should be implemented on the "parent" polymorphic objects
+		 */
 
-	#can't use abstract static functions for these due to PHP late static binding issues
+		/**
+		 * Returns all objects that are used in this polymorphic association
+		 * @return array
+		 */
+		public static function generateAllPolyObjects();
 
-	/**
-	 * @return string
-	 */
-	public function getTypeName();
+		/**
+		 * Generate a new polymorphic object from a specified service alias
+		 * @param $poly_alias
+		 * @return self
+		 */
+		public static function generatePolyObject($poly_alias);
 
-	/**
-	 * @return string
-	 */
-	public function getTypeDescription();
+		/**
+		 * These methods should be implemented on the "child" polymorphic objects
+		 */
 
-	/**
-	 * @return integer
-	 */
-	public function getTypeID();
-}
+		/**
+		 * Returns a unique service/form alias to be used for business logic and form generation.
+		 * Aliases returned here should be found in the service container
+		 * @return string
+		 */
+		public function getPolyAlias();
+
+		/**
+		 * Returns a label that can be used in selection dialogs
+		 * @return string
+		 */
+		public function getPolyLabel();
+
+		/**
+		 * Returns a short description that can be used in selection dialogs
+		 * @return string
+		 */
+		public function getPolyDescription();
+
+	}
