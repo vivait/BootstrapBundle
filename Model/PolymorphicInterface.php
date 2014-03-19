@@ -2,9 +2,6 @@
 
 namespace Vivait\BootstrapBundle\Model;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilder;
-
 interface PolymorphicInterface
 {
 	/**
@@ -37,7 +34,7 @@ interface PolymorphicInterface
 
 	/**
 	 * Returns an instance of the form type
-	 * @return AbstractType
+	 * @return \Symfony\Component\Form\AbstractType
 	 */
 	public function getFormType();
 }
