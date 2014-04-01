@@ -9,7 +9,7 @@
 	 */
 	trait PolymorphicTrait {
 		/**
-		 * @inheritDoc
+		 * @return $this
 		 */
 		public static function generatePolyObject($poly_alias) {
 			$objs = self::generateAllPolyObjects();
