@@ -16,7 +16,12 @@
 	{{ form.content|default('')|raw }}
 	{{ form_errors(form.form) }}
 	{{ form_widget(form.form) }}
-	<input type="hidden" id="parent" name="parent" value="{{ form.parent }}"/>
+
+	{% if form.parent is defined %}
+		<input type="hidden" id="parent" name="parent" value="{{ form.parent }}"/>
+	{% else %}
+		<input type="hidden" id="parent" name="parent" value="{{ app.request.query.get('parent', app.request.request.get('parent', app.request.headers.get('referer'))) }}"/>
+	{% endif %}
 
 	<div class="form-actions form-group text-center col-sm-12">
 		{% if is_blank_page %}
