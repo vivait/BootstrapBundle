@@ -7,6 +7,7 @@
                     cache: false,
                     success: function (data) {
                         $("#{{ htmlid }}").html(Twig.render({{ template }}, data));
+												{{ callback|default|raw }}
                     }
                 });
             },
