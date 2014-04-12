@@ -40,3 +40,13 @@ services:
         scope: request
         tags:
             - { name: knp_menu.menu, alias: bootstrap }
+
+    vivait.bootstrap.listener.entity:
+        class: Vivait\BootstrapBundle\EventListener\EntityListener
+        arguments:
+            session: "@session"
+            translator: "@translator"
+        tags:
+            - { name: kernel.event_listener, event: vivait.entity.created, method: onEntityCreatedEvent }
+            - { name: kernel.event_listener, event: vivait.entity.modified, method: onEntityModifiedEvent }
+            - { name: kernel.event_listener, event: vivait.entity.deleted, method: onEntityDeletedEvent }
