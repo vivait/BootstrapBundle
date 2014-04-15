@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\Translator;
 use Vivait\Common\Event\EntityEvent;
 
-class EntityListener {
+class EntityFlashBagListener {
 	/**
 	 * @var Session
 	 */

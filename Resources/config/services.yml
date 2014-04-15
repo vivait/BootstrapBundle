@@ -22,7 +22,7 @@ services:
          -  { name: form.type,  alias: datesince }
 
     vivait.bootstrap.listener.entity:
-        class: Vivait\BootstrapBundle\EventListener\EntityListener
+        class: Vivait\BootstrapBundle\EventListener\EntityFlashBagListener
         arguments:
             session: "@session"
             translator: "@translator"
