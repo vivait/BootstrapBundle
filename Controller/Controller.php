@@ -19,12 +19,16 @@ class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Controller
 			$parent = $this->generateUrl('viva_app_homepage');
 		}
 
-		if ($request->headers->get('X-REQUESTED-WITH') == 'XMLHttpRequest') {
+		return $this->redirectTo($parent);
+	}
+
+	public function redirectTo($to) {
+		if ($to->headers->get('X-REQUESTED-WITH') == 'XMLHttpRequest') {
 			return $this->render('VivaitBootstrapBundle:Default:redirect.html.twig', array(
-				'redirect' => $parent
+				'redirect' => $to
 			));
 		}
 
-		return $this->redirect($parent);
+		return $this->redirect($to);
 	}
 }
