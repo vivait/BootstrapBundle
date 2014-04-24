@@ -52,6 +52,10 @@ class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Controller
 			$this->dispatchEntityEventRunner($events, $uow, $dispatcher);
 		}
 	}
+	
+	public function getRepository($repository) {
+		return $this->getDoctrine()->getRepository($repository);
+	}
 
 	protected function dispatchEntityEventRunner(EntityEvent $event, UnitOfWork $uow, $dispatcher = null) {
 		if (!$dispatcher) {
