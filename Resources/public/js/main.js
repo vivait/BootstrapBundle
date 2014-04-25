@@ -174,7 +174,8 @@ var vivaBootstrap = function() {
 			tab = $('a[href=' + lastTab + ']');
 
 		if (lastTab && tab.length) {
-			tab.tab('show');
+			tab.click();
+//			tab.tab('show');
 		}
 	};
 
