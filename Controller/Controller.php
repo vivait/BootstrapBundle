@@ -52,10 +52,6 @@ class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Controller
 			$this->dispatchEntityEventRunner($events, $uow, $dispatcher);
 		}
 	}
-	
-	public function getRepository($repository) {
-		return $this->getDoctrine()->getRepository($repository);
-	}
 
 	protected function dispatchEntityEventRunner(EntityEvent $event, UnitOfWork $uow, $dispatcher = null) {
 		if (!$dispatcher) {
@@ -67,6 +63,9 @@ class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Controller
 		}
 		else if ($uow->isScheduledForInsert($event->getEntity())) {
 			$dispatcher->dispatch(EntityEvent::EVENT_ENTITY_CREATED, $event);
+		}
+		else if ($uow->isScheduledForDelete($event->getEntity())) {
+			$dispatcher->dispatch(EntityEvent::EVENT_ENTITY_DELETED, $event);
 		}
 	}
 }
