@@ -4,6 +4,7 @@ namespace Vivait\BootstrapBundle\Controller;
 
 use Doctrine\ORM\UnitOfWork;
 use Symfony\Component\HttpFoundation\Request;
+use Viva\AuthBundle\Entity\User;
 use Vivait\Common\Event\EntityEvent;
 
 class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Controller
@@ -68,4 +69,12 @@ class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Controller
 			$dispatcher->dispatch(EntityEvent::EVENT_ENTITY_DELETED, $event);
 		}
 	}
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return parent::getUser();
+    }
 }
