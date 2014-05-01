@@ -1,7 +1,7 @@
 {% if app.request.headers.get('X-REQUESTED-WITH') == 'XMLHttpRequest' %}
-	{% set extend_page = viva_app_twig_blank_base|default('VivaitBootstrapBundle:Default:blank_base.html.twig') %}
+    {% set extend_page = 'VivaitBootstrapBundle:Default:blank_base.html.twig' %}
 {% else %}
-	{% set extend_page = viva_app_twig_base|default('VivaitBootstrapBundle:Default:base.html.twig') %}
+    {% set extend_page = '::base.html.twig' %}
 {% endif %}
 
 {% extends extend_page %}
