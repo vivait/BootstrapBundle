@@ -63,7 +63,7 @@ var vivaBootstrap = function() {
 	}
 
 	this.registerSaveTab = function() {
-		$d.on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+		$d.on('show.bs.tab', 'a[data-toggle="tab"]', function (e) {
 			//save the latest tab; use cookies if you like 'em better:
 			localStorage.setItem('lastTab', $(e.target).attr('href'));
 		});
@@ -177,7 +177,7 @@ var vivaBootstrap = function() {
 			tab.tab('show');
 		}
         else {
-            $d.find('li.active a[data-toggle="tab"').trigger('show.bs.tab');
+            $d.find('li.active a[data-toggle="tab"').trigger('shown.bs.tab');
         }
 	};
 

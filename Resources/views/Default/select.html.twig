@@ -1,9 +1,26 @@
-<h1>{{ form.title }}</h1>
+{% if app.request.headers.get('X-REQUESTED-WITH') == 'XMLHttpRequest' %}
+    {% set extend_page = 'VivaitBootstrapBundle:Default:blank_base.html.twig' %}
+{% else %}
+    {% set extend_page = '::base.html.twig' %}
+{% endif %}
 
-{% for key, value in form.options %}
-<a href="{{ form.action }}&option={{ key }}&parent={{ form.parent }}" class="btn">{{ value }}</a>
-{% endfor %}
+{% extends extend_page %}
 
-<div class="form-actions">
-<a class="btn close-dialog" href="#">Cancel</a>
-</div>
+
+
+{% block sectiontitle %}
+    {{ title }}
+{% endblock %}
+
+{% block section %}
+    <p>{{ instructions }}:</p>
+    <div class="list-group">
+    {% for key, option in options %}
+        <a href="{{ path(route, option.route_params) }}" class="list-group-item ajax {% if selected|default == key %} active{% endif %}">{{ option.label }}</a>
+    {% endfor %}
+    </div>
+
+    <div class="form-actions">
+    <a class="btn close-dialog" href="#">Cancel</a>
+    </div>
+{% endblock %}
