@@ -173,11 +173,11 @@ var vivaBootstrap = function() {
 		var lastTab = localStorage.getItem('lastTab'),
 			tab = $('a[href=' + lastTab + ']');
 
-		if (lastTab && tab.length) {
+		if (lastTab && tab.length && !tab.parent('li').hasClass('active')) {
 			tab.tab('show');
 		}
         else {
-            $d.find('li.active a[data-toggle="tab"').trigger('shown.bs.tab');
+            $d.find('li.active a[data-toggle="tab"').trigger('show.bs.tab');
         }
 	};
 
