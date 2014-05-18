@@ -29,11 +29,3 @@
 .collection-item.panel-info .collapse-show-info {
 	display: inherit;
 }
-
-/* For footprints - todo: move me in to a separate file */
-#footprint-filter-header {
-	display: none;
-}
-#footprint-filter-header .badge {
-	color: #FFFFFF;
-}
