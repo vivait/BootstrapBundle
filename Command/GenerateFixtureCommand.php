@@ -7,83 +7,149 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Yaml\Yaml;
+use Viva\BravoBundle\Entity\Area;
+use Viva\BravoBundle\Entity\PostcodeArea;
+use Viva\BravoBundle\Entity\PostcodeDistrict;
 
 class GenerateFixtureCommand extends ContainerAwareCommand
 {
-	protected function configure()
-	{
-		$this
-			->setName('generate:fixture')
-			->setDescription('Generates a fixture')
-			->addArgument('query', InputArgument::REQUIRED, 'What query do you want to create a fixture for?')
-			->addOption('chain', null, InputOption::VALUE_NONE, 'If set, it will chain the method calls')
-		;
-	}
+    protected function configure()
+    {
+        $this
+          ->setName('generate:fixture')
+          ->setDescription('Generates a fixture')
+          ->addArgument('query', InputArgument::REQUIRED, 'What query do you want to create a fixture for?')
+          ->addOption('chain', null, InputOption::VALUE_NONE, 'If set, it will chain the method calls');
+    }
 
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		$em = $this->getContainer()->get('doctrine.orm.entity_manager');
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
-		$query = $em->createQuery($input->getArgument('query'));
-		$chain = $input->getOption('chain');
-		$code = '';
+        $query = $em->createQuery($input->getArgument('query'));
+        $chain = $input->getOption('chain');
+        $code  = '';
 
-		foreach ($query->getResult() as $result) {
-			$code .= $this->generateFixture($result, $chain);
-		}
+        foreach ($query->getResult() as $result) {
+            $code .= $this->generateAliceFixture($result);
+        }
 
-		$output->writeln($code);
-	}
+        file_put_contents($this->getContainer()->getParameter("kernel.cache_dir") . '/fixtures.yml', $code);
 
-	protected function generateFixture($object, $chain = false) {
-		$reflection = new \ReflectionObject($object);
+        $output->writeln($code);
+    }
 
-		$output = sprintf('$class = new \%s;%s', $reflection->getName(), PHP_EOL);
+    protected function generateFixture($object, $chain = false)
+    {
+        $reflection = new \ReflectionObject($object);
 
-		$is_first = true;
+        $output = sprintf('$class = new \%s;%s', $reflection->getName(), PHP_EOL);
 
-		foreach ($reflection->getMethods() as $method) {
-			if (substr_compare($method->getName(), 'set', 0, 3) === 0) {
-				$cut_name = substr($method->getName(), 3);
+        $is_first = true;
 
-				try {
-					$getter = $reflection->getMethod('get'. $cut_name);
-				}
-				catch(\ReflectionException $e) {
-					continue;
-				}
+        foreach ($reflection->getMethods() as $method) {
+            if (substr_compare($method->getName(), 'set', 0, 3) === 0) {
+                $cut_name = substr($method->getName(), 3);
 
-				// There's a getter
-				if ($getter) {
-					$value = $getter->invoke($object);
+                try {
+                    $getter = $reflection->getMethod('get' . $cut_name);
+                } catch (\ReflectionException $e) {
+                    continue;
+                }
 
-					if ($value === null || $value === ''){
-						continue;
-					}
+                // There's a getter
+                if ($getter) {
+                    $value = $getter->invoke($object);
 
-					if (is_object($value)) {
-						$value_reflection = new \ReflectionObject($value);
+                    if ($value === null || $value === '') {
+                        continue;
+                    }
 
-						try {
-							$value_reflection->getMethod('__set_state');
-						}
-						catch(\ReflectionException $e) {
-							continue;
-						}
-					}
+                    if (is_object($value)) {
+                        $value_reflection = new \ReflectionObject($value);
 
-					$output .= sprintf('%s->%s(%s)%s', (($chain && !$is_first) ? "\t" : '$class'), $method->getName(), var_export($value, true), ($chain ? '' : ';') .PHP_EOL);
-					$is_first = false;
-				}
-			}
-		}
+                        try {
+                            $value_reflection->getMethod('__set_state');
+                        } catch (\ReflectionException $e) {
+                            continue;
+                        }
+                    }
 
-		if ($chain) {
-			$output = substr($output, 0, strlen($output)	- 1) .';'. PHP_EOL;
-		}
+                    $output .= sprintf(
+                      '%s->%s(%s)%s',
+                      (($chain && !$is_first) ? "\t" : '$class'),
+                      $method->getName(),
+                      var_export($value, true),
+                      ($chain ? '' : ';') . PHP_EOL
+                    );
+                    $is_first = false;
+                }
+            }
+        }
 
-		$output .= '$manager->persist($class);'. PHP_EOL . PHP_EOL;
+        if ($chain) {
+            $output = substr($output, 0, strlen($output) - 1) . ';' . PHP_EOL;
+        }
 
-		return $output;
-	}
+        $output .= '$manager->persist($class);' . PHP_EOL . PHP_EOL;
+
+        return $output;
+    }
+
+    protected function generateAliceFixture($object, $name = 'district')
+    {
+        $reflection = new \ReflectionObject($object);
+        $array      = [];
+
+        $entity = $reflection->getName();
+
+        $key = $reflection->getProperty($name);
+        $key->setAccessible(true);
+        $key = $key->getValue($object);
+
+        foreach ($reflection->getProperties() as $property) {
+            if (in_array($property->getName(), ['id', 'areas'])) {
+                continue;
+            }
+
+            $property->setAccessible(true);
+            $value = $property->getValue($object);
+            $value = $this->getYAMLValue($value);
+
+            if ($value === null) {
+                continue;
+            }
+
+            $array[(string)$key][$property->getName()] = $value;
+        }
+
+        return Yaml::dump([$entity => $array], 3);
+    }
+
+    protected function getYAMLValue($value)
+    {
+        if (is_array($value) || $value instanceOf \Traversable) {
+            $new_value = [];
+            foreach ($value as $foreign) {
+                if ($foreign instanceOf Area) {
+                    return null;
+                }
+                // TODO: Make this more flexible
+                $new_value[] = $this->getYAMLValue($foreign);
+            }
+            return $new_value;
+        } else if ($value instanceOf PostcodeDistrict) {
+            return '@' . $value->getDistrict();
+        } else if ($value instanceOf Area) {
+            return null;
+            return '@' . $value->getName();
+        } else if ($value instanceOf PostcodeArea) {
+            return '@' . $value->getArea();
+        } else if (is_object($value)) {
+            return '@' . $value->getId();
+        } else {
+            return $value;
+        }
+    }
 }
