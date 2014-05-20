@@ -177,7 +177,7 @@ var vivaBootstrap = function() {
 			tab.tab('show');
 		}
         else {
-            $d.find('li.active a[data-toggle="tab"').trigger('shown.bs.tab');
+            $d.find('li.active a[data-toggle="tab"]').trigger('shown.bs.tab');
         }
 	};
 
