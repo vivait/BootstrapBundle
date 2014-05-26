@@ -32,7 +32,7 @@
 				});
 
 				accordion.on('change', '.panel .accordion-label-field', function(){
-						var p = $(this).parents('.panel'),
+						var p = $(this).closest('.panel'),
 								f = p.find('.accordion-label-field'),
 								v = '';
 
