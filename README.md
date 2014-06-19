@@ -101,6 +101,7 @@ You can change ```viva_app_name``` to be the title of your application, this wil
 ###Dumping the Assetic files
 ```bash
 php app/console mopa:bootstrap:symlink:less
+php app/console mopa:bootstrap:install:font
 php app/console assets:install --symlink
 php app/console assetic:dump
 php app/console cache:clear
