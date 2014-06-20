@@ -112,7 +112,53 @@ To enable the search box, you need to define the route to the search controller 
 ```yaml
 twig:
     globals:
-        vivait_search_path: vivait_customers_search
+        vivait_search_path: myapp_customers_search
 ```
 
 This will then pass the search query to your controller, via the ```query``` GET parameter.
+
+## Adding menu items
+To add menu items, you need to create an event listener that will listen to the ```vivait.bootstrap.menu_configure``` event:
+```php
+<?php
+// src/MyApp/MyBundle/EventListener.php
+namespace MyApp\MyBundle\EventListener;
+
+use Vivait\BootstrapBundle\Event\ConfigureMenuEvent;
+
+class ConfigureMenuListener {
+    /**
+     * @param ConfigureMenuEvent $event
+     */
+    public function onMenuConfigure(ConfigureMenuEvent $event) {
+        $menu = $event->getMenu()
+            ->getChild('main');
+
+        $members = $menu->addChild('Customers', array(
+            'dropdown' => true,
+            'caret'    => true,
+        ));
+
+        $members->addChild('Dashboard', array(
+            'icon'  => 'home',
+            'route' => 'myapp_customers_list'
+        ));
+        
+        $members->addChild('Add new', array(
+            'icon'  => 'plus',
+            'route' => 'myapp_customers_add'
+        ));
+        
+        // ... etc.
+    }
+}
+?>
+```
+
+You'll then need to configure this event in your ```services.yml```:
+```yaml
+myapp.mybundle.configure_menu_listener:
+    class: MyApp\MyBundle\EventListener\ConfigureMenuListener
+    tags:
+     - { name: kernel.event_listener, event: vivait.bootstrap.menu_configure, priority: -2, method: onMenuConfigure }
+```
