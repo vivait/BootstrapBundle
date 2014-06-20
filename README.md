@@ -99,7 +99,7 @@ twig:
 You can change ```viva_app_name``` to be the title of your application, this will then appear in the title of each page.
 
 ###Dumping the Assetic files
-```bash
+```sh
 php app/console mopa:bootstrap:symlink:less
 php app/console mopa:bootstrap:install:font
 php app/console assets:install --symlink
