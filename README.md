@@ -107,6 +107,19 @@ php app/console assetic:dump
 php app/console cache:clear
 ```
 
+#### Updating composer.json
+To make Mopa bootstrap bundle perform the symlink automatically on install, add the following to your composer.json:
+````json
+    "scripts": {
+        "post-install-cmd": [
+            "Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrap"
+        ],
+        "post-update-cmd": [
+            "Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrap"
+        ]
+    },
+````
+
 ## Enabling the search box
 To enable the search box, you need to define the route to the search controller in your ```config.yml```, e.g:
 ```yaml
