@@ -130,6 +130,27 @@ twig:
 
 This will then pass the search query to your controller, via the ```query``` GET parameter.
 
+## Using KNP Menus
+###Using composer
+``` bash
+$ composer require knplabs/knp-menu-bundle
+```
+
+###Enabling bundle
+```php
+<?php
+// app/AppKernel.php
+
+public function registerBundles()
+{
+    $bundles = array(
+        // ...
+    	new Knp\Bundle\MenuBundle\KnpMenuBundle()
+    );
+}
+
+```
+
 ## Adding menu items
 To add menu items, you need to create an event listener that will listen to the ```vivait.bootstrap.menu_configure``` event:
 ```php
