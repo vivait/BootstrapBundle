@@ -1,7 +1,9 @@
-<form class="navbar-form navbar-right" style="width:200px;" action="{{ path('viva_apollo_members') }}" method="get">
+<form id="header-search" class="navbar-form navbar-right" style="width:200px;"
+			action="{{ path(vivait_search_path|default('vivait_app_home')) }}" method="get">
 	<div class="input-group">
-		<span class="input-group-addon"><i class="icon glyphicon glyphicon-search"></i></span>
 		<input class="form-control" type="text" id="nav-searchbox" name="query" placeholder="Search..."
 					 value="{{ app.request.get('query') }}">
+		<span class="input-group-addon" style="cursor: pointer"
+					onclick="document.getElementById('header-search').submit();"><i class="glyphicon glyphicon-search"></i></span>
 	</div>
 </form>

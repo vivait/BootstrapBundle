@@ -32,6 +32,12 @@
 {% endjavascripts %}
 {% endblock head_script %}
 
+
+{% block head_bottom %}
+	{% include 'VivaitAuthBundle:Partials:heartbeat.html.twig' %}
+{% endblock %}
+
+
 {% block navbar %}
 	{% include 'VivaitBootstrapBundle:Default:menu.html.twig' %}
 {% endblock navbar %}
@@ -59,7 +65,25 @@
 
 	{% block foot_script %}
 		{{ parent() }}
+
+		{#
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/affix.js'
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/carousel.js'
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/modal.js'
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/scrollspy.js'
+		#}
+
 		{% javascripts
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/tooltip.js'
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/alert.js'
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/button.js'
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/collapse.js'
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/dropdown.js'
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/popover.js'
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/tab.js'
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/transition.js'
+		'@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+		'@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
 		'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery.dialog2.js'
 		'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery.controls.js'
 		'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery.form.js'
@@ -72,7 +96,7 @@
         '@MopaBootstrapBundle/Resources/public/components/smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.js'
         '@MopaBootstrapBundle/Resources/public/components/smalot-bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.uk.js'
 		'@VivaitBootstrapBundle/Resources/public/js/main.js'
-		"@VivaitBootstrapBundle/Resources/public/js/vendor/livestamp.js" %}
+		%}
 		<script type="text/javascript" src="{{ asset_url }}"></script>
 		{% endjavascripts %}
 
