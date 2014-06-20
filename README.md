@@ -7,7 +7,7 @@ Installation
 ------------
 ###Using composer
 ``` bash
-$ composer require viviat/bootstrap-bundle
+$ composer require vivait/bootstrap-bundle
 ```
 
 ###Enabling bundle
@@ -106,3 +106,13 @@ php app/console assets:install --symlink
 php app/console assetic:dump
 php app/console cache:clear
 ```
+
+## Enabling the search box
+To enable the search box, you need to define the route to the search controller in your ```config.yml```, e.g:
+```yaml
+twig:
+    globals:
+        vivait_search_path: vivait_customers_search
+```
+
+This will then pass the search query to your controller, via the ```query``` GET parameter.
