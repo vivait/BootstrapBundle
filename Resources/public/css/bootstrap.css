@@ -29,3 +29,10 @@
 .collection-item.panel-info .collapse-show-info {
 	display: inherit;
 }
+
+.menu-danger {
+	background-color: #cd0a0a;
+}
+.navbar-inverse .navbar-nav > li.menu-danger > a {
+	color: #FFF;
+}
