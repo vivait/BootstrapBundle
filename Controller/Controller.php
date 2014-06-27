@@ -60,13 +60,13 @@ class Controller extends \Symfony\Bundle\FrameworkBundle\Controller\Controller
 		}
 
 		if ($uow->isScheduledForUpdate($event->getEntity())) {
-			$dispatcher->dispatch(EntityEvent::EVENT_ENTITY_MODIFIED, $event);
+			$dispatcher->dispatch($event::EVENT_ENTITY_MODIFIED, $event);
 		}
 		else if ($uow->isScheduledForInsert($event->getEntity())) {
-			$dispatcher->dispatch(EntityEvent::EVENT_ENTITY_CREATED, $event);
+			$dispatcher->dispatch($event::EVENT_ENTITY_CREATED, $event);
 		}
 		else if ($uow->isScheduledForDelete($event->getEntity())) {
-			$dispatcher->dispatch(EntityEvent::EVENT_ENTITY_DELETED, $event);
+			$dispatcher->dispatch($event::EVENT_ENTITY_DELETED, $event);
 		}
 	}
 
