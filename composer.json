@@ -8,7 +8,8 @@
             "email": "kiel@vivait.co.uk"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
         "mopa/composer-bridge": "dev-master",
         "mopa/bootstrap-bundle": "dev-master",
