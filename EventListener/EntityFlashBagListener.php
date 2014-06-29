@@ -2,13 +2,13 @@
 
 namespace Vivait\BootstrapBundle\EventListener;
 
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface;
 use Vivait\Common\Event\EntityEvent;
 
 class EntityFlashBagListener {
 	/**
-	 * @var SessionInterface
+	 * @var Session
 	 */
 	private $session;
 
@@ -18,10 +18,10 @@ class EntityFlashBagListener {
 	private $translator;
 
 	/**
-	 * @param SessionInterface $session
+	 * @param Session $session
 	 * @param TranslatorInterface $translator
 	 */
-	public function __construct(SessionInterface $session, TranslatorInterface $translator)
+	public function __construct(Session $session, TranslatorInterface $translator)
 	{
 		$this->session    = $session;
 		$this->translator = $translator;
