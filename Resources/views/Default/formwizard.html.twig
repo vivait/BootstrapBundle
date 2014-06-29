@@ -11,7 +11,7 @@
 
 
 {% if form.step == 2 %}
-	{% form_theme form.form 'VivaBravoBundle:Form:fields.html.twig' %}
+	{% form_theme form.form 'VivaitBootstrapBundle:Form:fields.html.twig' %}
 	<form novalidate class="ajax form-horizontal" id="modelDialogForm" action="{{ form.action }}" method="post">
 		<h1>{{ form.obj.getPolyLabel|striptags }}</h1>
 		<p>{{ form.obj.getPolyDescription|raw }}</p>
