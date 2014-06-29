@@ -1,4 +1,4 @@
-{% extends 'VivaBravoBundle:Default:base.html.twig' %}
+{% extends '::base.html.twig' %}
 
 {% block body %}
 <script>
@@ -29,7 +29,6 @@
 				$("#index-deals").html(messagesd.join(''));
 				$("#index-customers").html(messagesc.join(''));
 				$("#index-callback").html(messagesb.join(''));
-				$(".offerexpiry").timeago();
 			});	
 		}
 		setInterval(refreshIndex,30000);

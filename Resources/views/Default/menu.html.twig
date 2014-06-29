@@ -1,40 +1,12 @@
-<div class="navbar navbar-inverse navbar-fixed-top">
-	<div class="navbar-inner">
-		<div class="container">
-			<a class="navbar-brand" href="{{ path('viva_app_homepage') }}">{{ viva_app_name|default('Viva Application Platform') }}</a>
+{% embed '@MopaBootstrap/Navbar/navbar.html.twig' with { fixedTop: true, staticTop: false, inverse: true } %}
+	{% block brand %}
+		<a class="navbar-brand" href="{{ path('viva_app_homepage') }}">{{ viva_app_name|default('Viva Application Platform') }}</a>
+	{% endblock %}
 
-			<div class="navbar-collapse collapse">
-				<ul class="nav">
-
-
-					<!-- NAV BAR -->
-					{% if is_granted('ROLE_ADMIN') %}
-						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Maintenance <b
-										class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="">Lots</a></li>
-							</ul>
-						</li>
-					{% endif %}
-
-				</ul>
-				<!-- END NAV BAR -->
-
-				<!-- SEARCH FORM -->
-				<form class="navbar-form pull-right" action="" method="get">
-					<div class="input-prepend">
-						<span class="add-on"><i class="icon icon-search"></i></span>
-						<input class="col-md-2" type="text" id="nav-searchbox" name="query" placeholder="Search..."
-							   value="{{ app.request.get('query') }}">
-					</div>
-				</form>
-
-				<!-- END SEARCH FORM -->
-				<!-- USER BADGE -->
-				{% include 'VivaitAuthBundle:Default:usermenu.html.twig' %}
-				<!-- END USER BADGE -->
-			</div>
-			<!--/.nav-collapse -->
-		</div>
-	</div>
-</div>
+	{% block menu %}
+		{{ knp_menu_render('bootstrap', {
+			'template': 'VivaitBootstrapBundle:menu:navbar_menu.html.twig',
+			'allow_safe_labels': true
+		}) }}
+	{% endblock %}
+{% endembed %}

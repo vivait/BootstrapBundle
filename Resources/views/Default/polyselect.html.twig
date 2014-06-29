@@ -1,0 +1,23 @@
+{% if app.request.headers.get('X-REQUESTED-WITH') == 'XMLHttpRequest' %}
+	{% set extend_page = 'VivaitBootstrapBundle:Default:blank_base.html.twig' %}
+{% else %}
+	{% set extend_page = '::base.html.twig' %}
+{% endif %}
+
+{% extends extend_page %}
+
+{% block sectiontitle %}
+	{{ title }}
+{% endblock %}
+
+{% block section %}
+	{% for row in types %}
+		<a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(querystring|default({}))|merge({'alias': row.getPolyAlias})) }}" class="btn ajax">{{ row.getPolyLabel|raw }}</a>
+	{% endfor %}
+
+	<div class="form-actions form-group text-center col-sm-12">
+		{% if is_blank_page %}
+			<a class="btn close-dialog" href="#">Cancel</a>
+		{% endif %}
+	</div>
+{% endblock %}

@@ -1,4 +1,5 @@
 {% extends "MopaBootstrapBundle:Form:fields.html.twig" %}
+{% use "VivaitBootstrapBundle:Form:accordionfields.html.twig" %}
 
 {% block checkboxgroup_widget %}
     {% spaceless %}
@@ -41,123 +42,6 @@
 
 {# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ #}
 
-{% block form_rows %}
-    {% for child in form %}
-        {{ form_row(child) }}
-    {% endfor %}
-{% endblock %}
-
-{# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ #}
-
-{% block form_errors %}
-    {% spaceless %}
-        {% if errors|length > 0 %}
-		<div class="controls">
-            {% for error in errors %}
-			<span class="help-block"><i class="glyphicon glyphicon-exclamation-sign"></i>
-				{{  error.messagePluralization is null
-                        ? error.messageTemplate|trans(error.messageParameters, 'validators')
-                        : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators')
-                }}
-			</span>
-            {% endfor %}
-		</div>
-        {% endif %}
-    {% endspaceless %}
-{% endblock form_errors %}
-
-{# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ #}
-
-{% block carout_widget %}
-<fieldset class="row-collection">
-    <legend>Car Sale</legend>
-	{{ form_widget(form) }}
-    {% for child in form %}
-	<div class="control-container{% if child.vars.errors|length > 0 %} error{% endif %}">
-        {{ form_widget(child) }}
-		</div>
-    {% endfor %}
-</fieldset>
-{% for child in form %}
-	<div class="control-container{% if child.vars.errors|length > 0 %} error{% endif %}">
-	<div class="symfony-form-errors">{{ form_errors(child) }}</div>
-	</div>
-{% endfor %}
-{% endblock %}
-
-{# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ #}
-
-{% block address_widget %}
-<fieldset class="row-collection">
-    <legend>Address</legend>
-	{{ form_widget(form) }}
-    {% for child in form %}
-	<div class="control-container{% if child.vars.errors|length > 0 %} error{% endif %}">
-        {{ form_widget(child) }}
-		</div>
-    {% endfor %}
-</fieldset>
-{% for child in form %}
-	<div class="control-container{% if child.vars.errors|length > 0 %} error{% endif %}">
-	<div class="symfony-form-errors">{{ form_errors(child) }}</div>
-	</div>
-{% endfor %}
-{% endblock %}
-
-{# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ #}
-
-{% block carin_widget %}
-<fieldset class="row-collection">
-    <legend>Part Exchange Car</legend>
-	{{ form_widget(form) }}
-    {% for child in form %}
-	<div class="control-container{% if child.vars.errors|length > 0 %} error{% endif %}">
-        {{ form_widget(child) }}
-		</div>
-    {% endfor %}
-</fieldset>
-{% for child in form %}
-	<div class="control-container{% if child.vars.errors|length > 0 %} error{% endif %}">
-	<div class="symfony-form-errors">{{ form_errors(child) }}</div>
-	</div>
-{% endfor %}
-{% endblock %}
-
-{# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ #}
-
-{% block ie_widget %}
-	{{ form_widget(form) }}
-    {% for child in form %}
-	<div class="control-container{% if child.vars.errors|length > 0 %} error{% endif %}">
-        {{ form_widget(child) }}
-		</div>
-    {% endfor %}
-{% for child in form %}
-	<div class="control-container{% if child.vars.errors|length > 0 %} error{% endif %}">
-	<div class="symfony-form-errors">{{ form_errors(child) }}</div>
-	</div>
-{% endfor %}
-{% endblock %}
-
-{# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ #}
-
-{% block employment_widget %}
-<fieldset class="row-collection">
-    <legend>Employment</legend>
-	{{ form_widget(form) }}
-    {% for child in form %}
-	<div class="control-container{% if child.vars.errors|length > 0 %} error{% endif %}">
-        {{ form_widget(child) }}
-		</div>
-    {% endfor %}
-</fieldset>
-{% for child in form %}
-	<div class="control-container{% if child.vars.errors|length > 0 %} error{% endif %}">
-	<div class="symfony-form-errors">{{ form_errors(child) }}</div>
-	</div>
-{% endfor %}
-{% endblock %}
-
 {# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ #}
 
 {% block colorpicker_widget %}
@@ -167,3 +51,119 @@
 {% endblock %}
 
 {# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ #}
+
+{% block datesince_widget %}
+	<div class="col-xs-3">
+		{{ form_widget(form, {
+			attr: {
+				'data-date' : widget,
+				'data-target-format': date_moment_pattern,
+				'data-target-selector': 'input[data-date="single_text"]'
+			}
+		}) }}
+	</div>
+
+	{% set calc_attr = {
+		'data-target-id': '#' ~ form.vars.id
+	} %}
+
+	{% set content %}<input type="text" class="date-calculator-modifier form-control" placeholder="{{ 'E.g. 4 years, 2 months'|trans }}"{% for attrname,attrvalue in calc_attr %} {{attrname}}="{{attrvalue}}"{% endfor %} />{% endset %}
+
+	<a href="#collapseOne" class="btn btn-default date-calculator" data-container="#coll_{{ form.parent.vars.id }} .panel-body" data-title="{{ 'At this address for:'|trans }}" data-content="{{ content|e }}" data-toggle="popover" data-placement="bottom" data-target="#collapseOne"><em class="glyphicon glyphicon-calendar"></em> Calculate</a>
+
+	<script>
+		var _set = false;
+		$(document).ready(function () {
+			if (_set != false) return;
+			_set = true;
+
+			$('.date-calculator').popover({
+				placement: 'bottom',
+				html: true
+			});
+
+			var dateCalculator = function() {
+				var $t = $(this),
+						val = $t.val(),
+						matches,
+						date,
+						format,
+						inputs,
+						changed = false,
+						input = $t.data('target-id'),
+						reg = /(\d)\W*(year|month|week|day)s?(?:\W|$)/gi;
+
+				console.log('changing');
+				console.log(input);
+
+				// No input? We must be performing the calculator to ourself
+				if (!input || (input = $(input)).length === 0) {
+					input = $t;
+					val = input.data('calc-val');
+				}
+
+				// Find the related elements
+				format = input.data('target-format');
+				inputs = $(input.data('target-selector'));
+				prev = $('#' + input.data('target-prev'));
+
+				// No previous input previously defined?
+				if (!prev.length) {
+					// Find the previous date
+					inputs.each(function() {
+						if ($(this).is(input)) {
+							return false;
+						}
+
+						prev = $(this);
+					});
+
+					if (prev.length) {
+						console.log('binding to');
+						console.log(prev);
+						prev.on('change', $.proxy(dateCalculator, input));
+						input.data('target-prev', $(prev).attr('id'));
+					}
+				}
+
+				// We've found a previous date field
+				if (prev.length) {
+					date = moment(prev.val(), format);
+				}
+				else {
+					date = moment();
+				}
+
+				// Apply the date transformations
+				while ((matches = reg.exec(val)) !== null)
+				{
+					changed = true;
+					date.subtract(matches[2], matches[1]);
+				}
+
+				if (changed) {
+					input.val(date.format(format)).data('calc-val', val);
+				}
+			};
+
+			$(document).on('keyup', '.date-calculator-modifier', dateCalculator);
+
+//			steps.sortable({
+//				scroll: true,
+//				axis: 'y',
+//				helper: function(event, element) {
+//					var collapse = $(element).find('.panel-collapse');
+//
+//					if (collapse.hasClass('in')) {
+//						collapse.removeClass('in').addClass('collapse');
+//						$(this).sortable('refreshPositions');
+//					}
+//					return element;
+//				},
+//				update: function() {
+//					recalculatePosition(this);
+//				}
+//			});
+		});
+	</script>
+{% endblock %}

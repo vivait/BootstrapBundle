@@ -1,0 +1,30 @@
+{% block form %}
+<form novalidate class="ajax form-horizontal" id="modelDialogForm" action="{{ form.action|default(app.request.uri) }}" method="post" {{ form_enctype(form.form) }}>
+    {% if form.form.delete is defined %}
+        {% set form_delete = form_widget(form.form.delete, {
+        attr: {
+        class: 'pull-left btn btn-danger',
+        }
+        }) %}
+    {% else %}
+        {% set form_delete = null %}
+    {% endif %}
+    {{ form.content|default('')|raw }}
+    {{ form_errors(form.form) }}
+    {{ form_widget(form.form) }}
+
+    {% if form.parent is defined %}
+        <input type="hidden" id="parent" name="parent" value="{{ form.parent }}"/>
+    {% else %}
+        <input type="hidden" id="parent" name="parent" value="{{ app.request.query.get('parent', app.request.request.get('parent', app.request.headers.get('referer'))) }}"/>
+    {% endif %}
+
+    <div class="form-actions form-group text-center col-sm-12">
+        {% if is_blank_page|default(false) %}
+            <a class="btn close-dialog pull-right" href="#">Cancel</a>
+        {% endif %}
+        <input type="submit" class="pull-right btn btn-primary" value="Submit"/>
+        {{ form_delete|raw }}
+    </div>
+</form>
+{% endblock %}

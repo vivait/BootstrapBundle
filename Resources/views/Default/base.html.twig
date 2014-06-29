@@ -1,7 +1,8 @@
+{% set is_blank_page = false %}
 {% extends 'MopaBootstrapBundle::base.html.twig' %}
 {% from 'VivaitBootstrapBundle:Default:flash.html.twig' import session_flash %}
 
-{% block title %}Viva Application Platform{% endblock %}
+{% block title %}{{ viva_app_name|default('Viva') }} - {{ block('sectiontitle')|striptags }}{% endblock %}
 
     {% block head_style %}
 		{# Override this block to add your own files! #}
@@ -11,6 +12,7 @@
 		'@VivaitBootstrapBundle/Resources/public/css/jquery.dialog2.css'
 		'@VivaitBootstrapBundle/Resources/public/css/bootstrap.css'
 		'@VivaitBootstrapBundle/Resources/public/css/offcanvassidebar.css'
+        '@VivaitBootstrapBundle/Resources/public/css/main.css'
 		'@VivaitBootstrapBundle/Resources/public/css/messenger.css'
 		'@VivaitBootstrapBundle/Resources/public/css/messenger-theme-future.css' %}
 		<link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen"/>
@@ -56,13 +58,29 @@
 
 
 	{% block foot_script %}
-		{{ parent() }}
+
+		{#
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/affix.js'
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/carousel.js'
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/modal.js'
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/scrollspy.js'
+		#}
+
 		{% javascripts
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/tooltip.js'
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/alert.js'
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/button.js'
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/collapse.js'
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/dropdown.js'
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/popover.js'
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/tab.js'
+		'@MopaBootstrapBundle/Resources/public/bootstrap/js/transition.js'
+		'@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+		'@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
 		'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery.dialog2.js'
 		'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery.controls.js'
 		'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery.form.js'
 		'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery.cookie.js'
-		'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery.timeago.js'
 		'@VivaitBootstrapBundle/Resources/public/js/vendor/jquery.dialog2.helpers.js'
 		'@VivaitBootstrapBundle/Resources/public/js/vendor/colorpicker/colorpicker.js'
 		'@VivaitBootstrapBundle/Resources/public/js/vendor/Chart.min.js'
@@ -70,172 +88,18 @@
 		'@VivaitBootstrapBundle/Resources/public/js/messenger-theme-future.js'
         '@MopaBootstrapBundle/Resources/public/components/smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.js'
         '@MopaBootstrapBundle/Resources/public/components/smalot-bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.uk.js'
-		"%kernel.root_dir%/../vendor/jms/twig-js/twig.js" %}
+		'@VivaitBootstrapBundle/Resources/public/js/main.js'
+        %}
 		<script type="text/javascript" src="{{ asset_url }}"></script>
 		{% endjavascripts %}
 
-
-
 		<script>
 			$(document).ready(function () {
-//				$(function () {
-//					var json, tabsState;
-//					$('a[data-toggle="pill"], a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-//						var href, json, parentId, tabsState;
-//						tabsState = localStorage.getItem("tabs-state");
-//						json = JSON.parse(tabsState || "{}");
-//						parentId = $(e.target).parents("ul.nav.nav-pills, ul.nav.nav-tabs").attr("id");
-//						href = $(e.target).attr('href');
-//						json[parentId] = href;
-//						return localStorage.setItem("tabs-state", JSON.stringify(json));
-//					});
-//					tabsState = localStorage.getItem("tabs-state");
-//					json = JSON.parse(tabsState || "{}");
-//					$.each(json, function (containerId, href) {
-//						var a_el = $("#" + containerId + " a[href=" + href + "]");
-//						$(a_el).parent().addClass("active");
-//						$(href).addClass("active in");
-//						return $(a_el).tab('show');
-//					});
-//					$("ul.nav.nav-pills, ul.nav.nav-tabs").each(function () {
-//						var $this = $(this);
-//						if (!json[$this.attr("id")]) {
-//							var a_el = $this.find("a[data-toggle=tab]:first, a[data-toggle=pill]:first"),
-//									href = $(a_el).attr('href');
-//							$(a_el).parent().addClass("active");
-//							$(href).addClass("active in");
-//							return $(a_el).tab("show");
-//						}
-//					});
-//				});
-
-//				$('.make-popover').popover();
-
-				$(document).on("click", ".confirm-message", function (e) {
-					var cnfm = confirm($(this).data('confirm-message'));
-					if (!cnfm) {
-						e.stopImmediatePropagation();
-					}
-					return cnfm;
-				});
-
-
-//				$(document).on("click", "tr", function () {
-//					var link = $(this).find("a");
-//					if(typeof link.attr("href") != "undefined") {
-//						if (link.hasClass("ajax-dialog")) {
-//							$('#modalDialog').dialog2({
-//								content: link.attr("href")
-//							});
-//						} else {
-//							window.location = link.attr("href");
-//						}
-//					}
-//				});
-//
-
-				$(document).on("click", ".ajax-dialog", function (event) {
-					$('#modalDialog').dialog2({
-						initialLoadText: "One moment...",
-						id: "modal-dialog",
-						content: this.href,
-						closeOnOverlayClick: false,
-						closeOnEscape: true,
-						removeOnClose: false,
-						showCloseHandle: true
-					});
-					event.preventDefault();
-				});
-
-
-				$(document).on("click", ".btn-group2 .btn", function () {
-					hidden = document.getElementById($(this).data("hiddenid"));
-					if ($(this).hasClass('active')) {
-						hidden.name = 'nobody';
-					} else {
-						hidden.name = $(this).data("hiddenname");
-					}
-				});
-
-				$(document).on("click", "#sidebar-activate", function () {
-					$('#sidebar').toggleClass('active')
-				});
-
-				jQuery.timeago.settings.allowFuture = true;
-				jQuery("abbr.timeago").timeago();
-
-				$(document).delegate(".modal", "dialog2.content-update", function () {
-					// got the dialog as this object. Do something with it!
-					var e = $(this);
-					var autoclose = e.find("a.auto-close");
-					if (autoclose.length > 0) {
-						e.hide();
-						var href = autoclose.attr('href');
-						if (href) {
-							window.location.href = href;
-						}
-					}
-
-//					$('.colorpickerfield').ColorPicker({
-//
-//						onSubmit: function (hsb, hex, rgb, el) {
-//							$(el).val(hex);
-//							$(el).ColorPickerHide();
-//						},
-//						onBeforeShow: function () {
-//							$(this).ColorPickerSetColor(this.value);
-//						}
-//					})
-//							.bind('keyup', function () {
-//								$(this).ColorPickerSetColor(this.value);
-//							});
-
-				});
-
-
-				window.downloadFile = function(sUrl) {
-
-					//If in Chrome or Safari - download via virtual link click
-					if (window.downloadFile.isChrome || window.downloadFile.isSafari) {
-						//Creating new link node.
-						var link = document.createElement('a');
-						link.href = sUrl;
-
-						if (link.download !== undefined){
-							//Set HTML5 download attribute. This will prevent file from opening if supported.
-							var fileName = sUrl.substring(sUrl.lastIndexOf('/') + 1, sUrl.length);
-							link.download = fileName;
-						}
-
-						//Dispatching click event.
-						if (document.createEvent) {
-							var e = document.createEvent('MouseEvents');
-							e.initEvent('click' ,true ,true);
-							link.dispatchEvent(e);
-							return true;
-						}
-					}
-
-					// Force file download (whether supported by server).
-					var query = '?download';
-
-					window.open(sUrl + query, '_self');
-				}
-
-				window.downloadFile.isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
-				window.downloadFile.isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
-
-
-				Messenger.options = {
-					extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
-					theme: 'future'
-				}
+				vivaBootstrap.documentLoaded();
 				{% if app.session.flashbag.peekAll|length > 0 %}
 				{{ session_flash() }}
 				{% endif %}
 			});
-
-
 		</script>
 
 	{% endblock foot_script %}

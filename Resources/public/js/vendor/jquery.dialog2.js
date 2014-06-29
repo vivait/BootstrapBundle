@@ -259,7 +259,7 @@
                     beforeSubmit: dialog.__ajaxStartTrigger,
                     beforeSend: dialog.__ajaxBeforeSend,
                     error: function() {
-                        throw dialogError("Form submit failed: " + $.makeArray(arguments));
+                        throw Error("Form submit failed: " + $.makeArray(arguments));
                     }
                 };
 
@@ -333,8 +333,9 @@
 
             dialog
                 .removeClass("opened")
-                .parent().parent().parent().hide().end()
-                .trigger("dialog2.closed");
+                .parent().parent().parent().hide();
+
+            dialog.trigger("dialog2.closed");
         },
 
         /**

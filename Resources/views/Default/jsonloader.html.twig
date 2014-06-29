@@ -2,12 +2,15 @@
 <script>
     (function(){
         var refresh_{{ template }} = function () {
-                $.ajax('{{ jsonsource }}', {
+                $.ajax('{{ jsonsource|escape('js') }}', {
                     dataType: "json",
                     cache: false,
                     success: function (data) {
-                        $("#{{ htmlid }}").html(Twig.render({{ template }}, data));
-                        jQuery("abbr.timeago").timeago();
+											var template = Twig.render({{ template }}, data);
+
+											{{ callback|default|raw }}
+
+											$("#{{ htmlid|escape('js') }}").html(template);
                     }
                 });
             },

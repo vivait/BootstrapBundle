@@ -1,116 +1,17 @@
-{% form_theme form.form 'VivaitBootstrapBundle:Form:fields.html.twig' %}
-<h1>{{ form.title }}</h1>
-<form novalidate class="ajax form-horizontal" id="modelDialogForm" action="{{ form.action }}" method="post" {{ form_enctype(form.form) }}>
-	{{ form.content|default('')|raw }}
-	{{ form_errors(form.form) }}
-	{{ form_widget(form.form) }}
-	<input type="hidden" id="parent" name="parent" value="{{ form.parent }}"/>
-
-	<div class="form-actions">
-		<a class="btn close-dialog" href="#">Cancel</a>
-		<input type="submit" class="btn btn-primary" value="Submit"/>
-	</div>
-</form>
-
-{# FOR DEBUGGING #}
-{# <script src="{{ asset('bundles/vivabravo/js/vendor/jquery-1.9.0.min.js') }}"></script> #}
-
-
-
-<script>
-{% if form.collection is defined %}
-		{% for key, collection in form.collection %}
-		var collectionHolder_{{ key }} = $('div#form_{{ key }}');
-		var $addTagLink_{{ key }} = $('<a href="#" class="add_tag_link btn btn-small"><i class="icon-plus-sign"></i> Add {{ collection }}</a></a>');
-		var $newLinkLi_{{ key }} = $('<div></div>').append($addTagLink_{{ key }});
-		{% endfor %}
-
-		jQuery(document).ready(function () {
-			{% for key, collection in form.collection %}
-			collectionHolder_{{ key }}.append($newLinkLi_{{ key }});
-			collectionHolder_{{ key }}.data('index', collectionHolder_{{ key }}.find(':input').length);
-			$addTagLink_{{ key }}.on('click', function (e) {
-				e.preventDefault();
-				addTagForm(collectionHolder_{{ key }}, $newLinkLi_{{ key }});
-			});
-			collectionHolder_{{ key }}.find('.row-collection').each(function () {
-				addTagFormDeleteLink($(this));
-			});
-			{% endfor %}
-
-		});
-
-		function addTagForm(collectionHolder, $newLinkLi) {
-			var prototype = collectionHolder.data('prototype');
-			var index = collectionHolder.data('index');
-			var newForm = prototype.replace(/__name__/g, index);
-			collectionHolder.data('index', index + 1);
-			var $newFormLi = $('<div></div>').append(newForm);
-			addTagFormDeleteLink($newFormLi);
-			$newLinkLi.before($newFormLi);
-
-
-			$('.datetime-picker').datetimepicker({
-				format: 'dd/mm/yyyy hh:ii',
-				autoclose: true,
-				todayHighlight: true,
-				minuteStep: 15
-			});
-			$('.date-picker').datetimepicker({
-				format: 'dd/mm/yyyy',
-				autoclose: true,
-				todayHighlight: true,
-				startView: 4,
-				minView: 2
-			});
-
-
-		}
-
-		function addTagFormDeleteLink($tagFormLi) {
-			var $removeFormA = $('<a class="btn btn-danger" style="float:right" href="#"><i class="icon-trash icon-white"></i> Delete</a>');
-			$tagFormLi.prepend($removeFormA);
-			$removeFormA.on('click', function (e) {
-				e.preventDefault();
-				if (confirm('Are you sure to delete this item ?')) {
-					$tagFormLi.remove();
-				}
-			});
-		}
+{% if app.request.headers.get('X-REQUESTED-WITH') == 'XMLHttpRequest' %}
+    {% set extend_page = 'VivaitBootstrapBundle:Default:blank_base.html.twig' %}
+{% else %}
+    {% set extend_page = '::base.html.twig' %}
 {% endif %}
-// Datepicker configuration
-$('[data-provider="datepicker"]').datetimepicker({
-    autoclose: true,
-    format: 'dd/mm/yyyy',
-    language: 'fr',
-    minView: 'month',
-    pickerPosition: 'bottom-left',
-    todayBtn: true,
-    startView: 'month'
-});
+{% extends extend_page|default('::base.html.twig') %}
 
-$('[data-provider="datetimepicker"]').datetimepicker({
-    autoclose: true,
-    format: 'dd/mm/yyyy hh:ii',
-    language: 'fr',
-    pickerPosition: 'bottom-left',
-    todayBtn: true
-});
+{% use 'VivaitBootstrapBundle:Partials:form.html.twig' %}
+{% form_theme form.form 'VivaitBootstrapBundle:Form:fields.html.twig' %}
 
-$('[data-provider="timepicker"]').datetimepicker({
-    autoclose: true,
-    format: 'hh:ii',
-    formatViewType: 'time',
-    maxView: 'day',
-    minView: 'hour',
-    pickerPosition: 'bottom-left',
-    startView: 'day'
-});
+{% block sectiontitle %}
+	{{ form.title }}
+{% endblock %}
 
-// Restore value from hidden input
-$('input[type=hidden]', '.date').each(function(){
-    if($(this).val()) {
-        $(this).parent().datetimepicker('setValue');
-    }
-});
-</script>
+{% block section %}
+    {{ block('form') }}
+{% endblock %}

@@ -1,7 +1,7 @@
 {% if form.step == 1 %}
 	<h1>{{ form.title }}</h1>
 	{% for row in form.obj %}
-		<a href="{{ form.action }}&step=2&typeid={{ row.getTypeID }}" class="btn ajax">{{ row.getTypeName|raw }}</a>
+		<a href="{{ form.action }}&step=2&typeid={{ row.getPolyAlias }}" class="btn ajax">{{ row.getPolyLabel|raw }}</a>
 	{% endfor %}
 	<div class="form-actions">
 		<a class="btn close-dialog" href="#">Cancel</a>
@@ -13,8 +13,8 @@
 {% if form.step == 2 %}
 	{% form_theme form.form 'VivaBravoBundle:Form:fields.html.twig' %}
 	<form novalidate class="ajax form-horizontal" id="modelDialogForm" action="{{ form.action }}" method="post">
-		<h1>{{ form.obj.getTypeName|striptags }}</h1>
-		<p>{{ form.obj.getTypeDescription|raw }}</p>
+		<h1>{{ form.obj.getPolyLabel|striptags }}</h1>
+		<p>{{ form.obj.getPolyDescription|raw }}</p>
 		{{ form_errors(form.form) }}
 		{{ form_widget(form.form) }}
 		<input type="hidden" id="parent" name="parent" value="{{ form.parent }}" />

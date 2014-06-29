@@ -14,3 +14,25 @@
 .panel-heading + .table td:last-child {
 	padding-right: 15px;
 }
+.modal-dialog {
+	width: 60%;
+}
+
+.panel .collapse-show-active,
+.panel.in .collapse-hide-active,
+.collection-item .collapse-show-danger,
+.collection-item .collapse-show-info {
+	display: none;
+}
+.panel.in .collapse-show-active,
+.collection-item.panel-danger .collapse-show-danger,
+.collection-item.panel-info .collapse-show-info {
+	display: inherit;
+}
+
+.menu-danger {
+	background-color: #cd0a0a;
+}
+.navbar-inverse .navbar-nav > li.menu-danger > a {
+	color: #FFF;
+}

@@ -4,7 +4,8 @@
 
 .page-wrap {
     float: left;
-    width: 100%;
+    width: 96%;
+	margin: 0 2%;
     transition: width 0.3s ease;
 }
 
@@ -28,10 +29,11 @@
 
 #sidebar.active {
     width: 20%;
-    padding: 5px 5px 50px 17px;
+	padding: 5px 1% 50px .5%;
 }
 #sidebar.active + .page-wrap {
-    width: 80%;
+    width: 76%;
+	margin-right: 0;
 }
 
 ::-webkit-scrollbar {
