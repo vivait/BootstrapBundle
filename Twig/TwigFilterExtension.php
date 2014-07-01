@@ -11,13 +11,13 @@ class TwigFilterExtension extends \Twig_Extension {
 
 	
     public function getFilters() {
-        return array( ########################CHANGE HERE TOO#########################
-			'yesno' => new \Twig_Filter_Method($this, 'yesnoFilter'),
-			'yesnoicon' => new \Twig_Filter_Method($this, 'yesnoiconFilter'),
-			'gender' => new \Twig_Filter_Method($this, 'genderFilter'),
-			'money' => new \Twig_Filter_Method($this, 'moneyFilter'),
-			'printr' => new \Twig_Filter_Method($this, 'printrFilter'),
-			'file_exists' => new \Twig_Filter_Method($this, 'file_exists'),
+        return array(
+			new \Twig_SimpleFilter('yesno', array($this, 'yesnoFilter')),
+			new \Twig_SimpleFilter('yesnoicon', array($this, 'yesnoiconFilter')),
+			new \Twig_SimpleFilter('gender', array($this, 'genderFilter')),
+			new \Twig_SimpleFilter('money', array($this, 'moneyFilter')),
+			new \Twig_SimpleFilter('printr', array($this, 'printrFilter')),
+			new \Twig_SimpleFilter('file_exists', array($this, 'file_exists'))
         );
     }
 	

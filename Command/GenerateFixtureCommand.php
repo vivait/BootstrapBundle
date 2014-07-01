@@ -8,9 +8,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
-use Viva\BravoBundle\Entity\Area;
-use Viva\BravoBundle\Entity\PostcodeArea;
-use Viva\BravoBundle\Entity\PostcodeDistrict;
+use Vivait\BravoBundle\Entity\Area;
+use Vivait\BravoBundle\Entity\PostcodeArea;
+use Vivait\BravoBundle\Entity\PostcodeDistrict;
 
 class GenerateFixtureCommand extends ContainerAwareCommand
 {
@@ -139,13 +139,13 @@ class GenerateFixtureCommand extends ContainerAwareCommand
                 $new_value[] = $this->getYAMLValue($foreign);
             }
             return $new_value;
-        } else if ($value instanceOf PostcodeDistrict) {
-            return '@' . $value->getDistrict();
-        } else if ($value instanceOf Area) {
-            return null;
-            return '@' . $value->getName();
-        } else if ($value instanceOf PostcodeArea) {
-            return '@' . $value->getArea();
+        //} else if ($value instanceOf PostcodeDistrict) {
+        //    return '@' . $value->getDistrict();
+        //} else if ($value instanceOf Area) {
+        //    return null;
+        //    return '@' . $value->getName();
+        //} else if ($value instanceOf PostcodeArea) {
+        //    return '@' . $value->getArea();
         } else if (is_object($value)) {
             return '@' . $value->getId();
         } else {
