@@ -209,7 +209,7 @@
                         primary: button.is("input[type=submit] .btn-primary"),
                         type: button.attr("class"),
                         click: function(event) {
-                            if (button.is("a")) { window.location = button[0].href }
+                            if (button.is("a") && button.is(".external-link")) { window.location = button[0].href }
                             // simulate click on the original button
                             // to not destroy any event handlers
                             button.click();
