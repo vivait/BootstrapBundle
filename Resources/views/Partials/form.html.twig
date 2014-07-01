@@ -1,9 +1,12 @@
 {% block form %}
+    {% set attrarray = {'class': 'ajax form-horizontal' } %}
+    {% if disable_html5_validation is defined and disable_html5_validation %}
+        {% set attrarray = attrarray|merge({'novalidate':''}) %}
+    {% endif %}
+
     {{ form_start(form.form, {
             action: form.action|default(app.request.uri),
-            attr: {
-                    'class': 'ajax form-horizontal'
-            }
+            attr: attrarray
         }) }}
         {% if form.form.delete is defined %}
             {% set form_delete = form_widget(form.form.delete, {
