@@ -1,0 +1,82 @@
+{% extends "MopaBootstrapBundle:Form:fields.html.twig" %}
+
+{% block infinite_form_polycollection_label %}
+    {% if 'checkbox' not in block_prefixes or widget_checkbox_label in ['label', 'both'] %}
+        {% spaceless %}
+            {% if label is not sameas(false) %}
+                {% if label is empty %}
+                    {% set label = name|humanize %}
+                {% endif %}
+                {% if not compound %}
+                    {% set label_attr = label_attr|merge({'for': id}) %}
+                {% endif %}
+                {% set label_attr_class = '' %}
+                {% if horizontal %}
+                    {% set label_attr_class = 'control-label ' ~ label_attr_class ~ horizontal_label_class %}
+                {% endif %}
+                {% set label_attr = label_attr|merge({'class': label_attr.class|default('') ~ label_attr_class ~ (required ? ' required' : ' optional') }) %}
+                <label{% for attrname,attrvalue in label_attr %} {{attrname}}="{{attrvalue}}"{% endfor %}>
+                {{ label|trans({}, translation_domain) }}
+                {{- block('label_asterisk') }}
+                {% if widget_add_btn|default(null) and form.vars.allow_add == true %}
+                    {{ block('form_widget_add_btn') }}
+                {% endif %}
+                {% if help_label %}
+                    {{ block('help_label') }}
+                {% endif %}
+                {% if help_label_tooltip.title %}
+                    {{ block('help_label_tooltip') }}
+                {% endif %}
+                {% if help_label_popover.title %}
+                    {{ block('help_label_popover') }}
+                {% endif %}
+                </label>
+            {% endif %}
+        {% endspaceless %}
+    {% endif %}
+{% endblock %}
+
+{% block collection_button %}
+    {% if form.vars.prototypes is defined %}
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                {% if button_values.icon is not null %}
+                    {{ mopa_bootstrap_icon(button_values.icon, button_values.icon_inverted|default(false)) }}
+                {% endif %}
+                {{ button_values.label|trans({}, translation_domain) }}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                {% for type, prototype in form.vars.prototypes %}
+                    <li>
+                        <a {% if prototype.children._desc.vars.value is defined %} data-toggle="tooltip" title="{{ prototype.children._desc.vars.value }}"{% endif %}
+                                data-collection-{{ button_type }}-btn=".{{ form.vars['id'] }}_form_group" data-prototype="{{ form_row(prototype)|e }}">
+                            {% if prototype.children._label.vars.value is defined %}
+                                {{ prototype.children._label.vars.value }}
+                            {% else %}
+                                {{ type }}
+                            {% endif %}
+                        </a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+
+{% block form_row %}
+    {% spaceless %}
+        {% if (form.parent is not null and 'infinite_form_polycollection' in form.parent.vars.block_prefixes) %}
+            {% set horizontal = false %}
+        {% endif %}
+        {{ parent() }}
+    {% endspaceless %}
+{% endblock %}
+
+{% block infinite_form_polycollection_widget %}
+    {{ block('collection_widget') }}
+
+    {{ block('infinite_form_polycollection_widget_add') }}
+{% endblock %}
