@@ -15,7 +15,7 @@
                     {% set label_attr_class = 'control-label ' ~ label_attr_class ~ horizontal_label_class %}
                 {% endif %}
                 {% set label_attr = label_attr|merge({'class': label_attr.class|default('') ~ label_attr_class ~ (required ? ' required' : ' optional') }) %}
-                <label{% for attrname,attrvalue in label_attr %} {{attrname}}="{{attrvalue}}"{% endfor %}>
+                <label{% for attrname,attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
                 {{ label|trans({}, translation_domain) }}
                 {{- block('label_asterisk') }}
                 {% if widget_add_btn|default(null) and form.vars.allow_add == true %}
@@ -50,7 +50,8 @@
                 {% for type, prototype in form.vars.prototypes %}
                     <li>
                         <a {% if prototype.children._desc.vars.value is defined %} data-toggle="tooltip" title="{{ prototype.children._desc.vars.value }}"{% endif %}
-                                data-collection-{{ button_type }}-btn=".{{ form.vars['id'] }}_form_group" data-prototype="{{ form_row(prototype)|e }}">
+                                data-collection-{{ button_type }}-btn=".{{ form.vars['id'] }}_form_group"
+                                data-prototype="{{ form_row(prototype)|e }}">
                             {% if prototype.children._label.vars.value is defined %}
                                 {{ prototype.children._label.vars.value }}
                             {% else %}
@@ -65,15 +66,6 @@
     {% endif %}
 {% endblock %}
 
-
-{% block form_row %}
-    {% spaceless %}
-        {% if (form.parent is not null and 'infinite_form_polycollection' in form.parent.vars.block_prefixes) %}
-            {% set horizontal = false %}
-        {% endif %}
-        {{ parent() }}
-    {% endspaceless %}
-{% endblock %}
 
 {% block infinite_form_polycollection_widget %}
     {{ block('collection_widget') }}
