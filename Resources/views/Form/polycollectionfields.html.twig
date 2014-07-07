@@ -72,3 +72,109 @@
 
     {{ block('infinite_form_polycollection_widget_add') }}
 {% endblock %}
+
+
+{% block form_row %}
+    {% spaceless %}
+        {% if 'tab' in form.vars.block_prefixes %}
+            {{ block('form_tab') }}
+        {% else %}
+            {{ block('widget_form_group_start') }}
+
+            {% set show_horizontal_wrapper = horizontal and not (form.parent is not null and ('collection' in form.parent.vars.block_prefixes or 'infinite_form_polycollection' in form.parent.vars.block_prefixes)) %}
+
+            {% if horizontal and not label_render %}
+                {% set horizontal_input_wrapper_class = horizontal_input_wrapper_class ~ ' ' ~ horizontal_label_offset_class %}
+            {% endif %}
+
+            {% if show_horizontal_wrapper %}
+                <div class="{{ horizontal_input_wrapper_class }}">
+            {% endif %}
+            {{ widget_prefix|trans({}, translation_domain)|raw }} {{ form_widget(form, _context) }} {{ widget_suffix|trans({}, translation_domain)|raw }}
+
+            {% if show_horizontal_wrapper %}
+                </div>
+            {% endif %}
+
+            {% if form.parent is not null and ('collection' in form.parent.vars.block_prefixes or 'infinite_form_polycollection' in form.parent.vars.block_prefixes) and widget_remove_btn|default(null) and form.parent.vars.allow_delete|default(false) %}
+                {{ block('form_widget_remove_btn') }}
+            {% endif %}
+            {{ block('widget_form_group_end') }}
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_row %}
+
+
+{% block form_label %}
+    {% if 'checkbox' not in block_prefixes or widget_checkbox_label in ['label', 'both'] %}
+        {% spaceless %}
+            {% if label is not sameas(false) %}
+                {% if label is empty %}
+                    {% set label = name|humanize %}
+                {% endif %}
+                {% if not compound %}
+                    {% set label_attr = label_attr|merge({'for': id}) %}
+                {% endif %}
+                {% set label_attr_class = '' %}
+                {% if horizontal %}
+                    {% set label_attr_class = 'control-label ' ~ label_attr_class ~ horizontal_label_class %}
+                {% endif %}
+                {% set label_attr = label_attr|merge({'class': label_attr.class|default('') ~ label_attr_class ~ (required ? ' required' : ' optional') }) %}
+                <label{% for attrname,attrvalue in label_attr %} {{attrname}}="{{attrvalue}}"{% endfor %}>
+                {{ label|trans({}, translation_domain) }}
+                {{- block('label_asterisk') }}
+                {% if ('collection' in form.vars.block_prefixes or 'infinite_form_polycollection' in form.parent.vars.block_prefixes) and widget_add_btn|default(null) and form.vars.allow_add == true %}
+                    {{ block('form_widget_add_btn') }}
+                {% endif %}
+                {% if help_label %}
+                    {{ block('help_label') }}
+                {% endif %}
+                {% if help_label_tooltip.title %}
+                    {{ block('help_label_tooltip') }}
+                {% endif %}
+                {% if help_label_popover.title %}
+                    {{ block('help_label_popover') }}
+                {% endif %}
+                </label>
+            {% endif %}
+        {% endspaceless %}
+    {% endif %}
+{% endblock form_label %}
+
+{% block widget_form_group_start %}
+    {% if widget_form_group|default(false) or form.parent == null %}
+        {% if form.parent is not null and ('collection' in form.parent.vars.block_prefixes or 'infinite_form_polycollection' in form.parent.vars.block_prefixes) %} {# i am a collection child #}
+            {% if not omit_collection_item %}
+                {# collection item wrapper doesnt need form-group it gets added to childs anyways #}
+                {% set widget_form_group_attr = widget_form_group_attr|merge({class: 'collection-item'}) %}
+            {% endif %}
+        {% endif %}
+        {% if errors|length > 0 %}
+            {# Add Error Class to Widget Wrapper#}
+            {% set widget_form_group_attr = widget_form_group_attr|merge({'class': widget_form_group_attr.class|default('') ~ ' has-error'}) %}
+        {% endif %}
+        {% if help_widget_popover.selector is sameas(null) %}
+            {% set help_widget_popover = help_widget_popover|merge({'selector': '#' ~ id }) %}
+        {% endif %}
+        <div{% if help_widget_popover.title is not sameas(null) %}{{ block('help_widget_popover') }}{% endif %} {% for attrname,attrvalue in widget_form_group_attr %} {{attrname}}="{{attrvalue}}"{% endfor %}>
+        {# a form item containing the field in block_prefixes is a near subform or a field directly #}
+        {% if (form|length > 0 and form.parent != null)
+        and 'field' not in form.vars.block_prefixes
+        and 'date' not in form.vars.block_prefixes %}
+            {% if show_child_legend%}
+                {{ block('form_legend') }}
+            {% elseif label_render %}
+                {{ form_label(form, label|default(null)) }}
+            {% else %}
+            {% endif %}
+        {% else %}
+            {% if label_render %}
+                {{ form_label(form, label|default(null)) }}
+            {% endif %}
+        {% endif %}
+    {% else %}
+        {% if label_render %}
+            {{ form_label(form, label|default(null)) }}
+        {% endif %}
+    {% endif %}
+{% endblock widget_form_group_start %}
