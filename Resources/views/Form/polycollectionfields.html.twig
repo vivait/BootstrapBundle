@@ -46,7 +46,7 @@
                 {{ button_values.label|trans({}, translation_domain) }}
                 <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" role="menu">
+            <ul class="dropdown-menu text-left" role="menu">
                 {% for type, prototype in form.vars.prototypes %}
                     <li>
                         <a {% if prototype.children._desc.vars.value is defined %} data-toggle="tooltip" title="{{ prototype.children._desc.vars.value }}"{% endif %}
@@ -161,7 +161,11 @@
         {% if (form|length > 0 and form.parent != null)
         and 'field' not in form.vars.block_prefixes
         and 'date' not in form.vars.block_prefixes %}
-            {% if show_child_legend%}
+            {% if form.children._label.vars.value is defined %}
+                {% set label = form.children._label.vars.value %}
+            {% endif %}
+
+            {% if show_child_legend %}
                 {{ block('form_legend') }}
             {% elseif label_render %}
                 {{ form_label(form, label|default(null)) }}
