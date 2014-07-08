@@ -23,9 +23,11 @@ class DeletableType extends AbstractTypeExtension
                       /* @var ClickableInterface $button */
                       $button = $event->getForm()->get('delete');
                       if ($button->isClicked()) {
-                          call_user_func($options['delete_button'], $event);
+                          call_user_func($options['delete_button'], $event->getData());
+                          $event->stopPropagation();
                       }
-                  }
+                  },
+                  900
                 );
             }
         }
