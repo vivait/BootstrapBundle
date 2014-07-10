@@ -35,3 +35,8 @@
 .has-spinner.btn-large.active .spinner {
     width: 19px;
 }
+
+.form-horizontal .collection-items.form-group {
+    margin-left: 0;
+    margin-right: 0;
+}

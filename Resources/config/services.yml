@@ -43,3 +43,8 @@ services:
         scope: request
         tags:
             - { name: knp_menu.menu, alias: bootstrap }
+
+    vivait.bootstrap.type_extension.deletable:
+        class: Vivait\BootstrapBundle\Form\Type\DeletableType
+        tags:
+          - { name: "form.type_extension", alias: "form" }

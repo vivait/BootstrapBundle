@@ -8,9 +8,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
-use Vivait\BravoBundle\Entity\Area;
-use Vivait\BravoBundle\Entity\PostcodeArea;
-use Vivait\BravoBundle\Entity\PostcodeDistrict;
 
 class GenerateFixtureCommand extends ContainerAwareCommand
 {
@@ -109,7 +106,7 @@ class GenerateFixtureCommand extends ContainerAwareCommand
         $key = $key->getValue($object);
 
         foreach ($reflection->getProperties() as $property) {
-            if (in_array($property->getName(), ['id', 'areas'])) {
+            if (in_array($property->getName(), ['id'])) {
                 continue;
             }
 
@@ -132,20 +129,10 @@ class GenerateFixtureCommand extends ContainerAwareCommand
         if (is_array($value) || $value instanceOf \Traversable) {
             $new_value = [];
             foreach ($value as $foreign) {
-                if ($foreign instanceOf Area) {
-                    return null;
-                }
                 // TODO: Make this more flexible
                 $new_value[] = $this->getYAMLValue($foreign);
             }
             return $new_value;
-        //} else if ($value instanceOf PostcodeDistrict) {
-        //    return '@' . $value->getDistrict();
-        //} else if ($value instanceOf Area) {
-        //    return null;
-        //    return '@' . $value->getName();
-        //} else if ($value instanceOf PostcodeArea) {
-        //    return '@' . $value->getArea();
         } else if (is_object($value)) {
             return '@' . $value->getId();
         } else {
