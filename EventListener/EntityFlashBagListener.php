@@ -33,7 +33,7 @@ class EntityFlashBagListener {
 	public function onEntityModifiedEvent(EntityEvent $event)
 	{
 		$this->getFlashBag()->add('success', $this->translator->trans('The %entity_name% has been modified successfully!', [
-			'%entity_name%' => $event->getEntityName()
+			'%entity_name%' => $event::getEntityTypeLabel()
 		]));
 	}
 
@@ -43,7 +43,7 @@ class EntityFlashBagListener {
 	public function onEntityCreatedEvent(EntityEvent $event)
 	{
 		$this->getFlashBag()->add('success', $this->translator->trans('The %entity_name% has been created successfully!', [
-			'%entity_name%' => $event->getEntityName()
+			'%entity_name%' => $event::getEntityTypeLabel()
 		]));
 	}
 
@@ -53,7 +53,7 @@ class EntityFlashBagListener {
 	public function onEntityDeletedEvent(EntityEvent $event)
 	{
 		$this->getFlashBag()->add('success', $this->translator->trans('The %entity_name% has been deleted', [
-			'%entity_name%' => $event->getEntityName()
+			'%entity_name%' => $event::getEntityTypeLabel()
 		]));
 	}
 
