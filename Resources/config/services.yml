@@ -30,6 +30,9 @@ services:
             - { name: kernel.event_listener, event: vivait.entity.created, method: onEntityCreatedEvent }
             - { name: kernel.event_listener, event: vivait.entity.modified, method: onEntityModifiedEvent }
             - { name: kernel.event_listener, event: vivait.entity.deleted, method: onEntityDeletedEvent }
+            - { name: kernel.event_listener, event: 'vivait.created.#', method: onEntityCreatedEvent }
+            - { name: kernel.event_listener, event: 'vivait.modified.#', method: onEntityModifiedEvent }
+            - { name: kernel.event_listener, event: 'vivait.deleted.#', method: onEntityDeletedEvent }
 
     vivait.bootstrap.menu_builder:
         class: Vivait\BootstrapBundle\Menu\MenuBuilder
