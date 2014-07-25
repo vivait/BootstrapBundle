@@ -33,23 +33,12 @@ mopa_bootstrap:
 ```
 
 Add the following to your config.yml to enable Mopa Bootstrap integration in to Assetic:
+Note: Bootstrap 3.1 and above use additional features in less which are incompatible with the LESS compiler, as such we have stripped them out until a solution can be found
 ```yaml
 assetic:
     bundles:        [VivaitBootstrapBundle,MopaBootstrapBundle]
     filters:
-        lessphp:
-            apply_to: "\.less$"
-            formatter: "compressed"
-            preserve_comments: false
-            presets:
-                my_variable: "#000"
         cssrewrite: ~
-    assets:
-        bootstrap_css:
-            inputs:
-                - %kernel.root_dir%/../vendor/twbs/bootstrap/less/bootstrap.less
-            filters:
-                - lessphp
 ```
 
 You may already have an assetic configuration in your config,yml, if this is the case then you should combine the two, e.g.
@@ -59,19 +48,7 @@ assetic:
     use_controller: false
     bundles:        [VivaitBootstrapBundle,MopaBootstrapBundle]
     filters:
-        lessphp:
-            apply_to: "\.less$"
-            formatter: "compressed"
-            preserve_comments: false
-            presets:
-                my_variable: "#000"
         cssrewrite: ~
-    assets:
-        bootstrap_css:
-            inputs:
-                - %kernel.root_dir%/../vendor/twbs/bootstrap/less/bootstrap.less
-            filters:
-                - lessphp
 ```
 
 Add the following to your config.yml to enable Viva Bootstrap form integration:
