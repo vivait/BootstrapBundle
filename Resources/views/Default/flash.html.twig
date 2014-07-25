@@ -3,7 +3,7 @@
 	{% if use_raw|default(false) %}
         message: '{{ message|trans({}, domain|default('messages'))|raw }}',
     {% else %}
-        message: '{{ message|trans({}, domain|default('messages')) }}',
+        message: '{{ message|trans({}, domain|default('messages'))|e('js') }}',
     {% endif %}
 		type: '{{ type ? ' alert-'~type : '' }}',  
     {% if close|default(false) %}
