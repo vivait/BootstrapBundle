@@ -331,6 +331,8 @@
 
             overlay.hide();
 
+            $('body').removeClass('modal-open');
+
             dialog
                 .removeClass("opened")
                 .parent().parent().parent().hide();
@@ -346,6 +348,8 @@
 
             if (!dialog.is(".opened")) {
                 this.__overlay.show();
+
+                $('body').addClass('modal-open');
 
                 dialog
                     .trigger("dialog2.before-open")
