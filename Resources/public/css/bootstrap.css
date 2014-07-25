@@ -15,7 +15,7 @@
 	padding-right: 15px;
 }
 .modal-dialog {
-	width: 60%;
+	min-width: 60%;
 }
 
 .panel .collapse-show-active,
