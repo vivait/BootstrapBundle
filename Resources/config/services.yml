@@ -30,9 +30,6 @@ services:
             - { name: kernel.event_listener, event: vivait.entity.created, method: onEntityCreatedEvent }
             - { name: kernel.event_listener, event: vivait.entity.modified, method: onEntityModifiedEvent }
             - { name: kernel.event_listener, event: vivait.entity.deleted, method: onEntityDeletedEvent }
-            - { name: kernel.event_listener, event: 'vivait.created.#', method: onEntityCreatedEvent }
-            - { name: kernel.event_listener, event: 'vivait.modified.#', method: onEntityModifiedEvent }
-            - { name: kernel.event_listener, event: 'vivait.deleted.#', method: onEntityDeletedEvent }
 
     vivait.bootstrap.menu_builder:
         class: Vivait\BootstrapBundle\Menu\MenuBuilder
@@ -51,3 +48,8 @@ services:
         class: Vivait\BootstrapBundle\Form\Type\DeletableType
         tags:
           - { name: "form.type_extension", alias: "form" }
+          
+    vivait.bootstrap.user.callable:
+        class: Vivait\BootstrapBundle\User\UserCallable
+        arguments:
+            container: @service_container
