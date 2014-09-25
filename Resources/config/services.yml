@@ -51,3 +51,8 @@ services:
         class: Vivait\BootstrapBundle\Form\Type\DeletableType
         tags:
           - { name: "form.type_extension", alias: "form" }
+
+    vivait.bootstrap.user.callable:
+        class: Vivait\BootstrapBundle\User\UserCallable
+        arguments:
+            container: @service_container
