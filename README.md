@@ -1,5 +1,7 @@
 BootstrapBundle
 ===============
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/vivait/BootstrapBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/vivait/BootstrapBundle/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/vivait/BootstrapBundle/badges/build.png?b=master)](https://scrutinizer-ci.com/g/vivait/BootstrapBundle/build-status/master)
 
 A set of common templates and utilities to assist in rapid application development in Symfony.
 
