@@ -185,11 +185,8 @@ To enable use of the hydrator, add the following to your config.yml:
 
 ```
 orm:
-     entity_managers:
-       default:
-         mappings: ~
-         hydrators:
-             ListHydrator: \Vivait\BootstrapBundle\Hydrator\ListHydrator
+  hydrators:
+    ListHydrator: \Vivait\BootstrapBundle\Hydrator\ListHydrator
 ```
 
 and use when retrieving results from a query:
