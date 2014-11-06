@@ -175,3 +175,25 @@ myapp.mybundle.configure_menu_listener:
     tags:
      - { name: kernel.event_listener, event: vivait.bootstrap.menu_configure, priority: -2, method: onMenuConfigure }
 ```
+
+## Using the list hydrator
+Bootstrap bundle includes a custom Doctrine hydrator, based on [this blog post](https://techpunch.co.uk/development/create-custom-doctrine2-hydrator-symfony2).
+
+> This hydrator is pretty straightforward, it examines the columns returned in each row of the resultset, if there are only two columns, the first is assumed to be the key field (which would normally be the objects ID) and the second is assumed to be the value field. If there are more than two columns per row then the returned array will be an ID indexed array with each row consisting of an array of the remaining column values.
+
+To enable use of the hydrator, add the following to your config.yml:
+
+```
+orm:
+     entity_managers:
+       default:
+         mappings: ~
+         hydrators:
+             ListHydrator: \Vivait\BootstrapBundle\Hydrator\ListHydrator
+```
+
+and use when retrieving results from a query:
+
+```
+$results = $this->getDoctrine()->getManager()->createQuery('{query}')->getResult('ListHydrator');
+```
