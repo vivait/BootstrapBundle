@@ -12,13 +12,13 @@ class ListHydrator extends AbstractHydrator
         $result = $cache = array();
 
         foreach ($this->_stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
-            $this->hydrateRowData($row, $result);
+            $this->hydrateRowData($row, $cache, $result);
         }
 
         return $result;
     }
 
-    protected function hydrateRowData(array $data, array &$result)
+    protected function hydrateRowData(array $data, array &$cache, array &$result)
     {
         if (count($data) == 0) {
             return false;
