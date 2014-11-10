@@ -5,6 +5,7 @@
         var refresh_{{ template }} = function () {
                     $.ajax('{{ jsonsource|escape('js') }}', {
                         dataType: "json",
+                        timeout: refresh_interval,
                         cache: false,
                         success: function (data) {
                             var template = Twig.render({{ template }}, data);
