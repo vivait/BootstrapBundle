@@ -200,14 +200,14 @@ At some point in your application, you may wish to inject the current user via t
 
 Simply inject ```vivait.bootstrap.user.callable```, like in the following
 
-```
+```yaml
 class: \My\Class
 arguments: [@vivait.bootstrap.user.callable]
 ```
 
 Then when you need to reference the current user in your class, just call ```userCallable::getCurrentUser```, as follows:
 
-```
+```php
 private $userCallable;
 
 function __construct(UserCallable $userCallable) {
@@ -215,6 +215,6 @@ function __construct(UserCallable $userCallable) {
 }
 
 public function mailCurrentUser() {
-    mail($userCallable->getEmail(), 'Example', 'Please don\'t actually use this example method!');
+    mail($userCallable->getCurrentUser()->getEmail(), 'Example', 'Please don\'t actually use this example method!');
 }
 ```
