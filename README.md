@@ -183,7 +183,7 @@ Bootstrap bundle includes a custom Doctrine hydrator, based on [this blog post](
 
 To enable use of the hydrator, add the following to your config.yml:
 
-```
+```yaml
 orm:
   hydrators:
     ListHydrator: \Vivait\BootstrapBundle\Hydrator\ListHydrator
@@ -191,7 +191,7 @@ orm:
 
 and use when retrieving results from a query:
 
-```
+```php
 $results = $this->getDoctrine()->getManager()->createQuery('{query}')->getResult('ListHydrator');
 ```
 
