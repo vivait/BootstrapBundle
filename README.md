@@ -194,3 +194,27 @@ and use when retrieving results from a query:
 ```
 $results = $this->getDoctrine()->getManager()->createQuery('{query}')->getResult('ListHydrator');
 ```
+
+## Using the user callable
+At some point in your application, you may wish to inject the current user via the container. Bootstrap provides a helper class for this, based on [this StackOverflow answer](http://stackoverflow.com/questions/22128402/symfony2-injecting-security-context-to-get-the-current-user-how-to-avoid-a-s).
+
+Simply inject ```vivait.bootstrap.user.callable```, like in the following
+
+```
+class: \My\Class
+arguments: [@vivait.bootstrap.user.callable]
+```
+
+Then when you need to reference the current user in your class, just call ```userCallable::getCurrentUser```, as follows:
+
+```
+private $userCallable;
+
+function __construct(UserCallable $userCallable) {
+    $this->userCallable = $userCallable;
+}
+
+public function mailCurrentUser() {
+    mail($userCallable->getEmail(), 'Example', 'Please don\'t actually use this example method!');
+}
+```
