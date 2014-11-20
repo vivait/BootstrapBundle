@@ -189,6 +189,8 @@ orm:
     ListHydrator: \Vivait\BootstrapBundle\Hydrator\ListHydrator
 ```
 
+*For use with Doctrine ORM 2.5+, use ```\Vivait\BootstrapBundle\Hydrator\ListHydrator25```*
+
 and use when retrieving results from a query:
 
 ```php
