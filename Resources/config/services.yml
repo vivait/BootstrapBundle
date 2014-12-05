@@ -53,3 +53,8 @@ services:
         class: Vivait\BootstrapBundle\User\UserCallable
         arguments:
             container: @service_container
+
+    ajax.listener:
+        class: Vivait\BootstrapBundle\EventListener\AjaxAuthenticationListener
+        tags:
+          - { name: kernel.event_listener, event: kernel.exception, method: onCoreException, priority: 1000 }

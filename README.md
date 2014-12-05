@@ -175,3 +175,48 @@ myapp.mybundle.configure_menu_listener:
     tags:
      - { name: kernel.event_listener, event: vivait.bootstrap.menu_configure, priority: -2, method: onMenuConfigure }
 ```
+
+## Using the list hydrator
+Bootstrap bundle includes a custom Doctrine hydrator, based on [this blog post](https://techpunch.co.uk/development/create-custom-doctrine2-hydrator-symfony2).
+
+> This hydrator is pretty straightforward, it examines the columns returned in each row of the resultset, if there are only two columns, the first is assumed to be the key field (which would normally be the objects ID) and the second is assumed to be the value field. If there are more than two columns per row then the returned array will be an ID indexed array with each row consisting of an array of the remaining column values.
+
+To enable use of the hydrator, add the following to your config.yml:
+
+```yaml
+orm:
+  hydrators:
+    ListHydrator: \Vivait\BootstrapBundle\Hydrator\ListHydrator
+```
+
+*For use with Doctrine ORM 2.5+, use ```\Vivait\BootstrapBundle\Hydrator\ListHydrator25```*
+
+and use when retrieving results from a query:
+
+```php
+$results = $this->getDoctrine()->getManager()->createQuery('{query}')->getResult('ListHydrator');
+```
+
+## Using the user callable
+At some point in your application, you may wish to inject the current user via the container. Bootstrap provides a helper class for this, based on [this StackOverflow answer](http://stackoverflow.com/questions/22128402/symfony2-injecting-security-context-to-get-the-current-user-how-to-avoid-a-s).
+
+Simply inject ```vivait.bootstrap.user.callable```, like in the following
+
+```yaml
+class: \My\Class
+arguments: [@vivait.bootstrap.user.callable]
+```
+
+Then when you need to reference the current user in your class, just call ```userCallable::getCurrentUser```, as follows:
+
+```php
+private $userCallable;
+
+function __construct(UserCallable $userCallable) {
+    $this->userCallable = $userCallable;
+}
+
+public function mailCurrentUser() {
+    mail($userCallable->getCurrentUser()->getEmail(), 'Example', 'Please don\'t actually use this example method!');
+}
+```
