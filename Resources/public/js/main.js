@@ -83,6 +83,19 @@ var vivaBootstrap = function () {
             });
             event.preventDefault();
         });
+        
+        $d.on("click", '.ajax-dialog-noclose', function (event) {
+            $('#modalDialog').dialog2({
+                initialLoadText: "One moment...",
+                id: "modal-dialog",
+                content: this.href,
+                closeOnOverlayClick: false,
+                closeOnEscape: false,
+                removeOnClose: true,
+                showCloseHandle: false
+            });
+            event.preventDefault();
+        });
 
         $d.on("dialog2.content-update", ".modal", function () {
             // Update the content
