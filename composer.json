@@ -18,10 +18,12 @@
         "knplabs/knp-menu-bundle":"dev-master",
         "vivait/common":"~2.2"
     },
+    "config": {
+        "bin-dir": "bin"
+    },
     "autoload": {
         "psr-0": {
-            "Vivait\\BootstrapBundle": ""
+            "Vivait\\BootstrapBundle\\": "src/"
         }
-    },
-    "target-dir": "Vivait/BootstrapBundle"
+    }
 }
