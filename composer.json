@@ -16,8 +16,7 @@
         "mopa/bootstrap-bundle": "dev-master",
         "twbs/bootstrap": "v3.2.0",
         "knplabs/knp-menu-bundle":"dev-master",
-        "vivait/common":"~2.2",
-        "doctrine/orm": "~2.5"
+        "vivait/common":"~2.2"
     },
     "config": {
         "bin-dir": "bin"
