@@ -39,7 +39,7 @@
             {% for message in messages %}
                 {% if type == 'download' %}
 						downloadFile('{{ asset(message) }}');
-				{% else %}
+				{% elseif( type in ['success', 'error'] )%}
 					{{ flash_messages.flash(type, message, close, use_raw, class, domain) }}
                 {% endif %}
             {% endfor %}
