@@ -5,6 +5,7 @@ namespace Vivait\BootstrapBundle\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Vivait\Common\User\UserCallableInterface;
 
 class UserCallable implements UserCallableInterface {
@@ -30,7 +31,7 @@ class UserCallable implements UserCallableInterface {
         $token = $context->getToken();
 
         if($token){
-            return $token->getUser() ?: null;
+            return $token->getUser() instanceof UserInterface ? $token->getUser() : null;
         } else {
             return null;
         }
