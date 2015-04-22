@@ -38,9 +38,18 @@ class UserCallableSpec extends ObjectBehavior
         $this->getCurrentUser()->shouldReturn(null);
     }
 
-    function it_returns_null_if_no_user(ContainerInterface $container, SecurityContextInterface $context, TokenInterface $token, UserInterface $user)
+    function it_returns_null_if_no_user(ContainerInterface $container, SecurityContextInterface $context, TokenInterface $token)
     {
         $token->getUser()->willReturn(null);
+        $context->getToken()->willReturn($token);
+        $container->get('security.context')->willReturn($context);
+
+        $this->getCurrentUser()->shouldReturn(null);
+    }
+
+    function it_returns_null_if_user_is_string(ContainerInterface $container, SecurityContextInterface $context, TokenInterface $token)
+    {
+        $token->getUser()->willReturn('anon');
         $context->getToken()->willReturn($token);
         $container->get('security.context')->willReturn($context);
 
