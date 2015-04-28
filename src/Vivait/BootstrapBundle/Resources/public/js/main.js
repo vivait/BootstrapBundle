@@ -29,7 +29,6 @@ var vivaBootstrap = function () {
         // Datepicker configuration
         $('[data-provider="datepicker"]', content).datetimepicker({
             autoclose: true,
-            format: 'dd/mm/yyyy',
             language: 'fr',
             minView: 'month',
             pickerPosition: 'bottom-left',
@@ -39,7 +38,6 @@ var vivaBootstrap = function () {
 
         $('[data-provider="datetimepicker"]', content).datetimepicker({
             autoclose: true,
-            format: 'dd/mm/yyyy hh:ii',
             language: 'fr',
             pickerPosition: 'bottom-left',
             todayBtn: true
@@ -47,7 +45,6 @@ var vivaBootstrap = function () {
 
         $('[data-provider="timepicker"]', content).datetimepicker({
             autoclose: true,
-            format: 'hh:ii',
             formatViewType: 'time',
             maxView: 'day',
             minView: 'hour',
