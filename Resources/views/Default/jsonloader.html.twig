@@ -1,23 +1,21 @@
 {#{% include 'VivaitBootstrapBundle:Default:jsonloader.html.twig' with {'htmlid':'','refresh':'','jsonsource':'','template':''} %}#}
 <script>
-    (function(){
-        var refresh_{{ template }} = function () {
-                $.ajax('{{ jsonsource|escape('js') }}', {
-                    dataType: "json",
-                    cache: false,
-                    success: function (data) {
-											var template = Twig.render({{ template }}, data);
-
-											{{ callback|default|raw }}
-
-											$("#{{ htmlid|escape('js') }}").html(template);
-                    }
-                });
-            },
-            load = function() {
-                setInterval(refresh_{{ template }}, {{ refresh * 1000 }});
-                refresh_{{ template }}();
-            };
+    (function () {
+        var refresh_{{ htmlid }}_{{ template }} = function () {
+                    $.ajax('{{ jsonsource|escape('js') }}', {
+                        dataType: "json",
+                        cache: false,
+                        success: function (data) {
+                            var template = Twig.render({{ template }}, data);
+                            {{ callback|default|raw }}
+                            $("#{{ htmlid|escape('js') }}").html(template);
+                        }
+                    });
+                },
+                load = function () {
+                    setInterval(refresh_{{ htmlid }}_{{ template }}, {{ refresh * 1000 }});
+                    refresh_{{ htmlid }}_{{ template }}();
+                };
 
         {% if wait|default(false) %}
         jQuery(window).load(load);
