@@ -178,7 +178,7 @@ var vivaBootstrap = function () {
     this.restoreTab = function (content) {
         // Go to the latest tab, if it exists:
         var lastTab = localStorage.getItem('lastTab'),
-            tab = $('a[href=' + lastTab + ']', content);
+            tab = $('a[href="' + lastTab + '"]', content);
 
         if (lastTab && tab.length && !tab.parent('li').hasClass('active')) {
             tab.tab('show');
