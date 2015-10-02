@@ -11,7 +11,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "moment/moment": "~2.5,
+        "moment/moment": "~2.5",
         "mopa/bootstrap-bundle": "~3.0",
         "twbs/bootstrap": "v3.2.0",
         "knplabs/knp-menu-bundle":"~2.1",
