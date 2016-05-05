@@ -1,5 +1,5 @@
-BootstrapBundle
-===============
+# BootstrapBundle
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/c6676dfd-e0c7-46db-bd26-fa69d3e71fc8/small.png)](https://insight.sensiolabs.com/projects/c6676dfd-e0c7-46db-bd26-fa69d3e71fc8)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/vivait/BootstrapBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/vivait/BootstrapBundle/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/vivait/BootstrapBundle/badges/build.png?b=master)](https://scrutinizer-ci.com/g/vivait/BootstrapBundle/build-status/master)
 
