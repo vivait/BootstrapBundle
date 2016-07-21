@@ -799,6 +799,32 @@
                     // If not, just inject the full result
                     responseText );
 
+            })
+            .fail(function( result ) {
+                var title = $('.modal-header h4');
+
+                if (title != null) {
+                    title[0].innerText = "Error " + result.status;
+                }
+
+                self.html(
+                    jQuery("<div>")
+                        .append(
+                            "<h4>" + result.statusText + "</h4>"
+                        )
+                        .append(
+                            "If you feel that this message is in error, please contact us so that we can " +
+                            "verify you have the correct permissions."
+                        )
+                );
+
+                self.dialog2("addButton", "Close", {
+                    click: function() {
+                        self.dialog2("close");
+                    },
+                    primary: false,
+                    type: "warning"
+                });
             });
 
         return this;
