@@ -1,7 +1,7 @@
 {
     "name": "vivait/bootstrap-bundle",
     "description": "Bootstrap Common Bundle",
-    "license": "proprietary",
+    "license": "MIT",
     "authors": [
         {
             "name": "Kiel Goodman",
