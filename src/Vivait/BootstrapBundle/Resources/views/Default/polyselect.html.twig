@@ -12,7 +12,7 @@
 
 {% block section %}
 	{% for row in types %}
-		<a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(querystring|default({}))|merge({(alias_param|default('alias')): row.getPolyAlias})) }}" class="btn ajax">{{ row.getPolyLabel|raw }}</a>
+		<a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge(querystring|default({}))|merge({(alias_param|default('alias')): row.getPolyAlias})) }}" class="btn ajax">{{ row.getPolyLabel }}</a>
 	{% endfor %}
 
 	<div class="form-actions form-group text-center col-sm-12">
