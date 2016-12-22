@@ -1,4 +1,11 @@
-{#{% include 'VivaitBootstrapBundle:Default:jsonloader.html.twig' with {'htmlid':'','refresh':'','jsonsource':'','template':''} %}#}
+{#{% include 'VivaitBootstrapBundle:Default:jsonloader.html.twig' with {'htmlid':'','refresh':'','jsonsource':'','template':'', 'autoreload':true} %}#}
+
+{% if autoreload is defined %}
+    {% set autoreload = autoreload is not same as(false) %}
+{% else %}
+    {% set autoreload = true %}
+{% endif %}
+
 <script>
   (function () {
     var refresh_interval = {{ ((refresh * 1000) + random(refresh * 100))|round(1,'floor')  }};
@@ -12,6 +19,17 @@
               {{ callback|default|raw }}
               $("#{{ htmlid|escape('js') }}").html(template);
             }
+        {% if autoreload %}
+            ,
+            statusCode: {
+              401: function () {
+                window.location.reload();
+              },
+              403: function () {
+                window.location.reload();
+              }
+            }
+        {% endif %}
           });
         },
         load = function () {
