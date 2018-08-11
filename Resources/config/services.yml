@@ -50,7 +50,7 @@ services:
     vivait.bootstrap.type_extension.deletable:
         class: Vivait\BootstrapBundle\Form\Type\DeletableType
         tags:
-          - { name: "form.type_extension", alias: "form" }
+          - { name: "form.type_extension", alias: "form", extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }
 
     vivait.bootstrap.user.callable:
         class: Vivait\BootstrapBundle\User\UserCallable
