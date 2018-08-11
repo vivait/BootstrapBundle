@@ -52,7 +52,7 @@ services:
     vivait.bootstrap.user.callable:
         class: Vivait\BootstrapBundle\User\UserCallable
         arguments:
-            container: @service_container
+            container: "@service_container"
 
     ajax.listener:
         class: Vivait\BootstrapBundle\EventListener\AjaxAuthenticationListener
