@@ -24,12 +24,15 @@ services:
     vivait.bootstrap.listener.entity:
         class: Vivait\BootstrapBundle\EventListener\EntityFlashBagListener
         arguments:
-            session: "@session"
-            translator: "@translator"
+            - "@session"
+            - "@translator"
         tags:
             - { name: kernel.event_listener, event: vivait.entity.created, method: onEntityCreatedEvent }
             - { name: kernel.event_listener, event: vivait.entity.modified, method: onEntityModifiedEvent }
             - { name: kernel.event_listener, event: vivait.entity.deleted, method: onEntityDeletedEvent }
+            - { name: kernel.event_listener, event: 'vivait.created.#', method: onEntityCreatedEvent }
+            - { name: kernel.event_listener, event: 'vivait.modified.#', method: onEntityModifiedEvent }
+            - { name: kernel.event_listener, event: 'vivait.deleted.#', method: onEntityDeletedEvent }
 
     vivait.bootstrap.menu_builder:
         class: Vivait\BootstrapBundle\Menu\MenuBuilder
@@ -47,14 +50,9 @@ services:
     vivait.bootstrap.type_extension.deletable:
         class: Vivait\BootstrapBundle\Form\Type\DeletableType
         tags:
-          - { name: "form.type_extension", alias: "form" }
-          
+          - { name: "form.type_extension", alias: "form", extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }
+
     vivait.bootstrap.user.callable:
         class: Vivait\BootstrapBundle\User\UserCallable
         arguments:
-            container: "@service_container"
-
-    ajax.listener:
-        class: Vivait\BootstrapBundle\EventListener\AjaxAuthenticationListener
-        tags:
-          - { name: kernel.event_listener, event: kernel.exception, method: onCoreException, priority: 1000 }
+            - "@service_container"
