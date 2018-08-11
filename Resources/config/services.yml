@@ -24,7 +24,7 @@ services:
     # Custom exception listener
     vivait.bootstrap.exception_listener:
       class: Vivait\BootstrapBundle\EventListener\ExceptionListener
-      arguments: [@templating, @kernel]
+      arguments: ["@templating", "@kernel"]
       tags:
           - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
 
