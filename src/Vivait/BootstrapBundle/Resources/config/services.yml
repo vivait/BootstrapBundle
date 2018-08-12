@@ -34,15 +34,14 @@ services:
             - { name: kernel.event_listener, event: 'vivait.modified.#', method: onEntityModifiedEvent }
             - { name: kernel.event_listener, event: 'vivait.deleted.#', method: onEntityDeletedEvent }
 
-    vivait.bootstrap.menu_builder:
+    Vivait\BootstrapBundle\Menu\MenuBuilder:
         class: Vivait\BootstrapBundle\Menu\MenuBuilder
         arguments: ["@knp_menu.factory", "@event_dispatcher"]
 
     vivait.bootstrap.menu.main:
         class: Knp\Menu\MenuItem
-        factory_service: vivait.bootstrap.menu_builder
-        factory_method: createMainMenu
-        arguments: ["@request"]
+        factory: 'Vivait\BootstrapBundle\Menu\MenuBuilder:createMainMenu'
+        arguments: ["@request_stack"]
         scope: request
         tags:
             - { name: knp_menu.menu, alias: bootstrap }
