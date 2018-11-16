@@ -5,6 +5,7 @@ namespace Vivait\BootstrapBundle\Form\Type;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\ClickableInterface;
 use Symfony\Component\Form\Exception\OutOfBoundsException;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -51,7 +52,7 @@ class DeletableType extends AbstractTypeExtension
 
     public function getExtendedType()
     {
-        return 'form';
+        return FormType::class;
     }
 
     public function addDeleteButton(FormEvent $event)
