@@ -15,7 +15,7 @@ class DeletableType extends AbstractTypeExtension
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if ($options['delete_button']) {
+        if ($options['delete_button'] ?? false) {
             $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'addDeleteButton']);
 
             if (is_callable($options['delete_button'])) {
