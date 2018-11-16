@@ -7,12 +7,12 @@ A set of common templates and utilities to assist in rapid application developme
 
 Installation
 ------------
-###Using composer
+### Using composer
 ``` bash
 $ composer require vivait/bootstrap-bundle
 ```
 
-###Enabling bundle
+### Enabling bundle
 ``` php
 <?php
 // app/AppKernel.php
@@ -26,7 +26,7 @@ public function registerBundles()
 }
 ```
 
-###Add the config rules
+### Add the config rules
 Add the following to your config.yml to enable Mopa Bootstrap integration:
 ```yaml
 mopa_bootstrap:
@@ -77,7 +77,7 @@ twig:
 
 You can change ```viva_app_name``` to be the title of your application, this will then appear in the title of each page.
 
-###Dumping the Assetic files
+### Dumping the Assetic files
 ```sh
 php app/console mopa:bootstrap:symlink:less
 php app/console mopa:bootstrap:install:font
@@ -110,12 +110,12 @@ twig:
 This will then pass the search query to your controller, via the ```query``` GET parameter.
 
 ## Using KNP Menus
-###Using composer
+### Using composer
 ``` bash
 $ composer require knplabs/knp-menu-bundle
 ```
 
-###Enabling bundle
+### Enabling bundle
 ```php
 <?php
 // app/AppKernel.php
