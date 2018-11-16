@@ -4,7 +4,6 @@ namespace Vivait\BootstrapBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Vivait\BootstrapBundle\Event\ConfigureMenuEvent;
 
 class MenuBuilder {
@@ -21,7 +20,7 @@ class MenuBuilder {
 		$this->event_dispatcher = $event_dispatcher;
 	}
 
-	public function createMainMenu(RequestStack $requestStack) {
+	public function createMainMenu() {
 		$menu = $this->factory->createItem('root');
 
 		$menu->addChild('main', [

@@ -41,7 +41,6 @@ services:
     vivait.bootstrap.menu.main:
         class: Knp\Menu\MenuItem
         factory: 'Vivait\BootstrapBundle\Menu\MenuBuilder:createMainMenu'
-        arguments: ["@request_stack"]
         tags:
             - { name: knp_menu.menu, alias: bootstrap }
 
