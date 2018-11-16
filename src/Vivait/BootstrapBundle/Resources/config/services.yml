@@ -42,7 +42,6 @@ services:
         class: Knp\Menu\MenuItem
         factory: 'Vivait\BootstrapBundle\Menu\MenuBuilder:createMainMenu'
         arguments: ["@request_stack"]
-        scope: request
         tags:
             - { name: knp_menu.menu, alias: bootstrap }
 
