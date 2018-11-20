@@ -4,7 +4,7 @@
 {% block grid %}
 	<form id="{{ grid.hash }}" action="{{ grid.routeUrl }}" method="post">
 		<div class="panel panel-default">
-			{% if grid.totalCount > 0 or grid.isFiltered or grid.noDataMessage is sameas(false) %}
+			{% if grid.totalCount > 0 or grid.isFiltered or grid.noDataMessage is same as(false) %}
 				<div class="panel-heading">
 					{% if grid.massActions|length > 0 %}
 						<div class="pull-right form-inline grid_massactions">
@@ -142,7 +142,7 @@
 {% block grid_column_operator %}
 	{% if column.operatorsVisible %}
 		<div class="grid-filter-operator col-sm-2">
-			<select name="{{ grid.hash }}[{{ column.id }}][operator]" class="form-control" onchange="{{ grid.hash }}_switchOperator(this, '{{ grid.hash }}__{{ column.id }}__query__'{% if submitOnChange is sameas(false) %}, false{% endif%});">
+			<select name="{{ grid.hash }}[{{ column.id }}][operator]" class="form-control" onchange="{{ grid.hash }}_switchOperator(this, '{{ grid.hash }}__{{ column.id }}__query__'{% if submitOnChange is same as(false) %}, false{% endif%});">
 				{% for operator in column.operators %}
 					<option value="{{ operator }}"{% if op == operator %} selected="selected"{% endif %}>{{ operator |trans }}</option>
 				{% endfor %}
@@ -163,8 +163,8 @@
 	<div class="grid-filter-input">
 		{{ grid_column_operator(column, grid, op, submitOnChange) }}
 		<div class="grid-filter-input-query col-sm-8">
-			<input type="{{ column.inputType }}" value="{{ from }}" class="grid-filter-input-query-from form-control" name="{{ grid.hash }}[{{ column.id }}][from]" id="{{ grid.hash }}__{{ column.id }}__query__from" {% if submitOnChange is sameas(true) %}onkeypress="return {{ grid.hash }}_submitForm(event, this.form);"{% endif%} {{ ( op == isNullOperator or op == isNotNullOperator ) ? 'style="display: none;" disabled="disabled"' : '' }} />
-			<input type="{{ column.inputType }}" value="{{ to }}" class="grid-filter-input-query-to form-control" name="{{ grid.hash }}[{{ column.id }}][to]" id="{{ grid.hash }}__{{ column.id }}__query__to" {% if submitOnChange is sameas(true) %}onkeypress="return {{ grid.hash }}_submitForm(event, this.form);"{% endif%} {{ ( op == btwOperator or op == btweOperator ) ? '': 'style="display: none;" disabled="disabled"' }} />
+			<input type="{{ column.inputType }}" value="{{ from }}" class="grid-filter-input-query-from form-control" name="{{ grid.hash }}[{{ column.id }}][from]" id="{{ grid.hash }}__{{ column.id }}__query__from" {% if submitOnChange is same as(true) %}onkeypress="return {{ grid.hash }}_submitForm(event, this.form);"{% endif%} {{ ( op == isNullOperator or op == isNotNullOperator ) ? 'style="display: none;" disabled="disabled"' : '' }} />
+			<input type="{{ column.inputType }}" value="{{ to }}" class="grid-filter-input-query-to form-control" name="{{ grid.hash }}[{{ column.id }}][to]" id="{{ grid.hash }}__{{ column.id }}__query__to" {% if submitOnChange is same as(true) %}onkeypress="return {{ grid.hash }}_submitForm(event, this.form);"{% endif%} {{ ( op == btwOperator or op == btweOperator ) ? '': 'style="display: none;" disabled="disabled"' }} />
 		</div>
 	</div>
 {% endblock grid_column_filter_type_input %}
@@ -186,23 +186,23 @@
 			{% if expanded %}
 				<span class="grid-filter-select-query-from" id="{{ grid.hash }}__{{ column.id }}__query__from" {{ ( op == isNullOperator or op == isNotNullOperator ) ? 'style="display: none;" disabled="disabled"' : '' }}>
             {% for key, value in column.values %}
-							<span><input type="{% if multiple %}checkbox{% else %}radio{% endif %}" class="form-control" name="{{ grid.hash }}[{{ column.id }}][from][]" value="{{ key }}" {% if key in from %} checked="checked"{% endif %} {% if submitOnChange is sameas(true) %}onclick="return {{ grid.hash }}_submitForm(event, this.form);"{% endif%}/><label>{{ value }}</label></span>
+							<span><input type="{% if multiple %}checkbox{% else %}radio{% endif %}" class="form-control" name="{{ grid.hash }}[{{ column.id }}][from][]" value="{{ key }}" {% if key in from %} checked="checked"{% endif %} {% if submitOnChange is same as(true) %}onclick="return {{ grid.hash }}_submitForm(event, this.form);"{% endif%}/><label>{{ value }}</label></span>
 						{% endfor %}
             </span>
 				<span class="grid-filter-select-query-to" id="{{ grid.hash }}__{{ column.id }}__query__to" {{ ( op == btwOperator or op == btweOperator ) ? '': 'style="display: none;" disabled="disabled"' }}>
             {% for key, value in column.values %}
-							<span><input type="{% if multiple %}checkbox{% else %}radio{% endif %}" class="form-control" name="{{ grid.hash }}[{{ column.id }}][to]" value="{{ key }}" {% if not to is null and to == key %} checked="checked"{% endif %} {% if submitOnChange is sameas(true) %}onclick="return {{ grid.hash }}_submitForm(event, this.form);"{% endif%}/><label>{{ value }}</label></span>
+							<span><input type="{% if multiple %}checkbox{% else %}radio{% endif %}" class="form-control" name="{{ grid.hash }}[{{ column.id }}][to]" value="{{ key }}" {% if not to is null and to == key %} checked="checked"{% endif %} {% if submitOnChange is same as(true) %}onclick="return {{ grid.hash }}_submitForm(event, this.form);"{% endif%}/><label>{{ value }}</label></span>
 						{% endfor %}
             </span>
 				{% if multiple %}<input type="submit" value="{{ 'Go'|trans }}" />{% endif %}
 			{% else %}
-				<select{% if multiple %} multiple="multiple"{% endif %} name="{{ grid.hash }}[{{ column.id }}][from][]" class="grid-filter-select-query-from form-control" id="{{ grid.hash }}__{{ column.id }}__query__from" {% if submitOnChange is sameas(true) %}onchange="return {{ grid.hash }}_submitForm(event, this.form);"{% endif%} {{ ( op == isNullOperator or op == isNotNullOperator ) ? 'style="display: none;" disabled="disabled"' : '' }}>
+				<select{% if multiple %} multiple="multiple"{% endif %} name="{{ grid.hash }}[{{ column.id }}][from][]" class="grid-filter-select-query-from form-control" id="{{ grid.hash }}__{{ column.id }}__query__from" {% if submitOnChange is same as(true) %}onchange="return {{ grid.hash }}_submitForm(event, this.form);"{% endif%} {{ ( op == isNullOperator or op == isNotNullOperator ) ? 'style="display: none;" disabled="disabled"' : '' }}>
 					<option value="">&nbsp;</option>
 					{% for key, value in column.values %}
 						<option value="{{ key }}"{% if key in from %} selected="selected"{% endif %}>{{ value }}</option>
 					{% endfor %}
 				</select>
-				<select name="{{ grid.hash }}[{{ column.id }}][to]" class="grid-filter-select-query-to form-control" id="{{ grid.hash }}__{{ column.id }}__query__to" {% if submitOnChange is sameas(true) %}onchange="return {{ grid.hash }}_submitForm(event, this.form);"{% endif%} {{ ( op == btwOperator or op == btweOperator ) ? '': 'style="display: none;" disabled="disabled"' }}>
+				<select name="{{ grid.hash }}[{{ column.id }}][to]" class="grid-filter-select-query-to form-control" id="{{ grid.hash }}__{{ column.id }}__query__to" {% if submitOnChange is same as(true) %}onchange="return {{ grid.hash }}_submitForm(event, this.form);"{% endif%} {{ ( op == btwOperator or op == btweOperator ) ? '': 'style="display: none;" disabled="disabled"' }}>
 					<option value="">&nbsp;</option>
 					{% for key, value in column.values %}
 						<option value="{{ key }}"{% if not to is null and to == key %} selected="selected"{% endif %}>{{ value }}</option>
