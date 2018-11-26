@@ -2,6 +2,7 @@
 namespace Vivait\BootstrapBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormInterface;
@@ -37,7 +38,7 @@ class DateSinceType extends AbstractType
 
 	public function getParent()
 	{
-		return 'date';
+		return DateType::class;
 	}
 
 	public function getName()
