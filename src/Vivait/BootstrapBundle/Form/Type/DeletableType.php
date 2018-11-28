@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\ClickableInterface;
 use Symfony\Component\Form\Exception\OutOfBoundsException;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -63,7 +64,7 @@ class DeletableType extends AbstractTypeExtension
         if ($object && $object->getId()) {
             $form->add(
               'delete',
-              'submit',
+              SubmitType::class,
               [
                 'label' => 'Delete',
                 'attr' => [
